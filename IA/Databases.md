@@ -46,3 +46,33 @@ The database setup can vary depending on requirements
 - Foreign key referential integrity
 - Value atomicity
 - Entity Integrity
+
+### DBMS
+The course will cover how a DBMS provides an elegant interface to work with a database.
+Low-level implementation details such as networking, memory/storage management, query processing etc. will not be covered.
+
+**Create** - Insert new data items into the database
+**Read** - Query the database
+**Update**- Modify objects in the database
+**Delete** - Remove data from the database
+
+Various management processes are also provided but mostly beyond course scope, examples include changing schema, changing view, changing permissions, backups, statistic generation etc.
+
+### Data Models
+**Relational Model** - Data is stored in tables, optimised for high throughput of many concurrent updates
+**Document-Oriented Model** - Optimised for for read-oriented databases with few updates and semi-structured data
+**Graph-Oriented Model** - Made of nodes and edges, optimised for "path" tracing and algorithms to connect different nodes in various ways
+
+### Relational Databases
+Consists of a number of 2D tables. 
+![[Pasted image 20231010115115.png]]
+
+**Distributed Databases** - Database held over multiple machines or multiple datacentres.
+**Scalability** - The data set or workload can be too large for a single machine
+**Fault Tolerance** - The service can survive the failure of some machinery
+**Lower Latency** - Data can be located closer to widely distributed users
+
+However after an update there is a massive overhead in providing a consistent view. This can be mitigated with relaxed-consistency model, but can cause different users to have different versions of the database at different times. Additional challenges include:
+**Consistency** -
+**Availability** -
+****

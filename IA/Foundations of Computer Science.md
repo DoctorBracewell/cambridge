@@ -91,3 +91,5 @@ Defining a recurrence relation can often help illustrate the complexity of a (re
 
 `T(n + 1) = T(n) + 1` -> `O(n)`
 
+# 3
+---
