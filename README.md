@@ -1,7 +1,7 @@
 <div align="center">
   <h1 align="center">Computer Science Tripos Notes</h1>
   <p>
-    <img alt="Github license" src="https://img.shields.io/github/license/DoctorBracewell/cuddles?style=for-the-badge">
+    <img alt="Github license" src="https://img.shields.io/github/license/DoctorBracewell/cambridge?style=for-the-badge">
   </p>
 </div>
 
