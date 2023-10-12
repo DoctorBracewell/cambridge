@@ -5,7 +5,7 @@
   </p>
 </div>
 
-> Cuddles for anyone, anytime, anyplace.
+> Obsidian Vault containing my notes for the University of Cambridge Computer Science Tripos
 ## Author
 
 👤 **DrBracewell**
