@@ -93,3 +93,17 @@ Defining a recurrence relation can often help illustrate the complexity of a (re
 
 # 3
 ---
+### Lists
+**List** - A finite sequence of elements of the same type. Lists can be appended with `@`
+`x :: l ` represents a list with length `x` and tail `l`
+![[Pasted image 20231011102136.png]]
+
+A list of type `α` can be represented as `α :: α list`
+Internally lists are represented as a *linked structure*, each item links to another one until the final one links to an empty list. Taking a list's head or tail (tail being the *list* associated after the head) takes constant time.
+
+Often manipulation uses recursion, but iteration can also be more efficient similar to earlier examples.
+
+### Strings and Characters
+**Characters** - A single constant character, primitives defined with `'`
+**String** - A collection of characters, primitives defined with `"`. Strings can be appended with `^`.
+

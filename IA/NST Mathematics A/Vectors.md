@@ -55,8 +55,27 @@ Another property of a plane is the perpendicular distance to the origin.
 **Component Formula for Planes** - A plane can also be expressed in component/cartesian form where the co-efficients of `x, y, z` are the normal vector, and this is equal to `a • n`
 **Alternative Equation of a Plane** - A plane can also be expressed as a single point and two lines that lie within the plane.
 
+**Equation of a Sphere** - `|r - a| = R` where `a` is the centre and `R` is the radius.
+**Equation of a Cylinder** - Consider the component of OR that is parallel to the axis normal to the surface, `|r| cosθ = | r • n|`. This leads to `| r - (r • n)n | = R
+**Equation of a Cone** - The property of a cone is that the line from the vertex to any point on the cone always makes an angle `α` with the axis. `(r − q) • n = |r − q| cos α`
+![[Pasted image 20231012092420.png]]
 
+**Vector Product** - `a ∧ b ≡ |a| |b| sin θ n`. This finds a normal vector to both vectors `a` and `b`
+![[Pasted image 20231012092817.png]]
+It is anti-commutative, as the direction of the cross product reverses when swapped. The cross product of two parallel vectors is `0`.
 
+You can write the result in component forms by distributing the brackets and using the component `i, j, k` parallel rules to eliminate terms.
+
+The determinant of the matrix below is the same as the vector product of `a` and `b`.
+![[Pasted image 20231012093516.png]]
+![[Pasted image 20231012093523.png]]
+
+You can derive alternative equations for lines and planes.
+**Line** - `(r − a) ∧ (b − a) = 0` because they must be parallel.
+![[Pasted image 20231012094638.png]]
+**Plane** - `(b − a) ∧ (c − a)` is the normal to the plane. Therefore `(r - a)` is perpendicular to the normal. Therefore: `(r − a) ⋅ [(b − a) ∧ (c − a)] = 0`.
+
+The two most useful properties is that for **orthogonal vectors the dot-product is `0`**, and for **parallel vectors the cross-product is `0`**.
 
 
 

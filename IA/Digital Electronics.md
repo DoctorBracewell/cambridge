@@ -66,7 +66,7 @@ AND takes precedence over OR.
 **Distribution** - `a.(b + c) = (a.b) + (a.c)`
 **Absorption*** - `a + (a.c) = a` | `a.(a + c) = a`
 
-**Consensus Theorem** - Conjunction of unique literals of all the terms
+**Consensus Theorem** - Combination of unique literals of all the terms
 Another technique is to expand terms until they all include one instance of each variable (or its compliment). 
 
 **DeMorgan's Theorem** - Complement all terms, switch all ANDs to ORs or vice versa then complement the entire expression. `a + b + c = !(!a . !b . !c)`
@@ -149,12 +149,51 @@ Karnaugh Maps are not practical beyond 5-6 variables.
 	- Do the same for all of the groups in the 1st column
 	- Then repeat for the 2nd column into the 3rd. They must differ by a single bit but also have a dash in the *same place*.
 	- Groups in the 2nd column that do not contribute to the 3rd column are marked with an asterix (these are prime implicants)
+	- Continue until finsihed
 
+This method works because each column identifies groups of powers of two. If an element in the previous column does not contribute to another one then it has no adjacent `1`s and covers an essential term.
 
+The second step is to find the lowest number of identified prime implicants that will cover the entire function. This can be done with a prime implicant table like so:
+- Write all minterms as the columns (ignore don't-cares)
+- Write all prime implicants as the rows, and include all the minterms covered by that implicant (dashes can mean 0 or 1)
+- Match the covered minterms in the rows and columns
+![[Pasted image 20231011111643.png]]
+- Then look for columns that have only a single X  - that minterm is covered by only one prime implicant. Those implicants must be included in the result
+- Then cross out the minterms that are covered by the essential minterms to find any remaining uncovered minterms
+![[Pasted image 20231011112008.png]]
+- Finally find the fewest number of prime implicants to cover the remaining minterms.
+![[Pasted image 20231011112111.png]]
 
+### Binary Adders
+**Half Adder** - A logic circuit that takes in two binary inputs and returns a sum and a carry output.
+![[Pasted image 20231011112321.png]]
+By inspection: `c = a . b`, `sum = a xor b`
 
+**Full Adder** - A logic circuit that takes in three binary inputs and returns a sum and a carry output
+![[Pasted image 20231011112419.png]]
+The functions for `c` and `sum` can be simplified through boolean expression manipulation.
 
+**Ripple Carry Adder** - Multiple full adders connected together to sum two n-bit binary numbers.
+![[Pasted image 20231011112716.png]]
+However this initial design can become very slow because of the sequential additions that rely on previous carries.
 
+![[Pasted image 20231011114027.png]]
+Another option is to generate the carries separately to the addition and much faster, so that the full adders can run parallel.
 
+![[Pasted image 20231011114140.png]]
+Generate a truth table for the carry result for a full adder. This lets you find expressions for carries at any index and then *express them using carries of lower indices* all the way down to the original carry in. This means you can generate an expression for a carry of any index solely using `an`s, `bn`s and `c0`.
 
+![[Pasted image 20231011114836.png]]
 
+However this can get very complicated very quickly, especially with larger indexes and n-bit numbers. To reduce complexity, you might use fast carry generation in e.g blocks of 4-bit adders
+
+![[Pasted image 20231011114947.png]]
+- Conventional ripple carry within 4-bit blocks
+- Fast carry generation between 4-bit blocks
+- Trade off between complexity and speed.
+
+### Multilevel Logic
+**Multilevel Logic** - Using more functions/logic circuits (e.g. not just SoP or PoS) such as a ripple carry adder. Used because:
+- Commercially available logic gates usually only available with a restricted number of inputs, typically, 2 or 3.
+- System composition from sub-systems reduces design complexity, e.g., a ripple adder made from full adders 
+- Allows Boolean optimisation across multiple outputs, e.g., common sub-expression elimination. A SoP expression might only need two levels of gates, but could have many more gates and literals than if it was improved/factorised to have more levels of gates.
