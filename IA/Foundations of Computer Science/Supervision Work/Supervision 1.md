@@ -27,6 +27,24 @@ let compare_dates a b =
 ```
 
 b) 
+```ocaml
+let add y n = 
+  if y < 0 || y > 99 then
+    failwith "invalid date!"
+  else if n < 0 then
+    failwith "invalid sum!"
+  else
+    if y >= 50 then
+      if y + n <= 99 then
+        y + n
+      else
+        y + n - 100
+    else
+      if y + n <= 49 then
+        y + n
+      else
+        failwith "date overflow!"
+```
 ### 1.3
 An `if-else` expression/pattern takes in some other expression that resolves to a boolean. If this boolean is true, the `if` branch will resolve, if it is false then the `else` branch will resolve. In the example, the `if-else` pattern is unnecessary because the expression in the `...` would already result in a boolean value (`true` or `false`). The programmer should simply return this expression.
 
@@ -50,7 +68,76 @@ let rec calculate curr amnt stop =
     curr
   else
     calculate (1.0 /. (curr -. 1.0)) (amnt + 1) stop
-;;
 
 calculate ((1.0 +. sqrt 5.0) /. 2.0) 0 50
 ```
+---
+### 2.1
+```ocaml
+let power_i x n = 
+  let rec power acc x n = 
+    if n = 1 then
+      acc
+    else
+      if n mod 2 = 0 then
+        power (acc * acc) x (n / 2)
+      else 
+        power (acc * acc * x) x (n / 2)
+  in
+  power x x n
+```
+### 2.2
+???
+What are the `a` values representing? Just coefficients? If so, would the proof just be that "the term of n grows larger than any other as n increases, so coefficients are discarded?"
+
+### 2.3
+What does closed form mean?
+> Given 𝑛 + 1, it performs a constant amount of work (an addition and subtraction) and calls itself recursively with argument 𝑛. We get the recurrence equations 𝑇 (0) = 1 and 𝑇 (𝑛 + 1) = 𝑇 (𝑛) + 1. The closed form is clearly 𝑇 (𝑛) = 𝑛 + 1, as we can easily verify by substitution. The cost is linear.
+
+Answer: `O(1 + log(n))`
+
+---
+### 3.1
+a)
+```ocaml
+let rec sum_r list = match list with
+  | hd::tl -> hd + sum_r tl
+  | [] -> 0
+```
+b)
+```ocaml
+let sum_i list = 
+  let rec sum acc = function
+    | hd::tl -> sum (acc + hd) tl
+    | [] -> acc
+  in
+  sum 0 list
+```
+
+The recursive implementation will use more stack space as the calculation cannot begin until tails that are also lists have been passed into the function. Only once the tail is an empty list can the function start to resolve the calculations until it has added all of the items.
+In contrast, the iterative implementation uses an accumulator so calculations can be performed in constant space complexity, as the current item is added to the accumulator before being passed into the function so no intermediate values need to be kept in memory.
+### 3.2
+```ocaml
+let rec last_item  = function
+    | hd::tl ->
+        if tl = [] then
+            hd
+        else
+            last_item tl
+    | [] -> failwith "no last item"
+```
+I believe that the most efficient way to find the last item in a list is to just traverse the list one item after another until you reach a list with a tail that is an empty list. This is the most efficient method because OCaml does not represent lists as items in specific indices but as a "head" (a single item) linked to a "tail", where the tail is another list.
+### 3.3
+```ocaml
+let even_items list =
+  let rec skip_items acc skip = function
+    | hd::tl -> x
+      if skip then
+        skip_items acc (not skip) tl
+      else
+        skip_items (acc @ [hd]) (not skip) tl
+    | [] -> acc
+  in
+  skip_items [] true list
+```
+### Exam Question
