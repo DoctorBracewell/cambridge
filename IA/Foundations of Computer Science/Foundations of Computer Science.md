@@ -106,4 +106,37 @@ Often manipulation uses recursion, but iteration can also be more efficient simi
 ### Strings and Characters
 **Characters** - A single constant character, primitives defined with `'`
 **String** - A collection of characters, primitives defined with `"`. Strings can be appended with `^`.
+# 4
+---
+### More on Lists
+**Take** - Create a new list from the first `i` items of an existing list `xs`
+```ocaml
+let rec take i = function
+  | [] -> []
+  | x::xs ->
+      if i > 0 then x :: take (i - 1) xs
+      else []
+```
+**Drop** - Create a new list by discarding the first `i` items of an existing list `xs`
+```ocaml
+let rec drop i = function
+  | [] -> []
+  | x::xs ->
+      if i > 0 then drop (i-1) xs
+      else x::xs
+```
+
+![[Pasted image 20231013102212.png]]
+
+**Linear** - Going through each element in a list one by one, `O(n)` time complexity
+**Ordered** - Going through an ordered list with a binary subdivision method, `O(log n)` time complexity
+**Indexed** - Looking up an item directly at an index, `O(1)` time complexity
+
+**Zip** - Combine two lists into a list of pair tuples
+```ocaml
+let rec zip xs ys =
+  match xs, ys with
+  | (x::xs, y::ys) -> (x, y) :: zip xs ys
+  | _ -> []
+```
 

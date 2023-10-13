@@ -1,3 +1,5 @@
+**Name:** Brace Godfrey
+**CRSId:** dg681
 ### 1.1
 This approach would limit the number of available years to be stored to be 100, between `1950` up to `2049`. Whilst this is the same number of years as the original two-digit implementation representing years between 1900 to 1999, it is more reasonable and useful as more years into the future could be stored.
 However, there are multiple disadvantages of the solution. It would be additional cognitive load on the programmer to remember how the digits "wrap around" the turn of the century, perhaps leading to bugs in program or making it less clear to other programmers. Any implementation of the standard would also require additional logic to check whether the date is in the 1900s or the 2000s, as well as providing functions to operate on dates such as adding/subtracting/calculating intervals
@@ -87,14 +89,13 @@ let power_i x n =
   power x x n
 ```
 ### 2.2
-???
-What are the `a` values representing? Just coefficients? If so, would the proof just be that "the term of n grows larger than any other as n increases, so coefficients are discarded?"
-
+`f(n) = O(g(n))` where `|f(n)| <= c * |g(n)|`
+Not sure what a<sub>i</sub> is defined as? I think you would use the formal definition of Big O complexity as above but I don't understand how a<sub>i</sub> relates?
 ### 2.3
 What does closed form mean?
 > Given 𝑛 + 1, it performs a constant amount of work (an addition and subtraction) and calls itself recursively with argument 𝑛. We get the recurrence equations 𝑇 (0) = 1 and 𝑇 (𝑛 + 1) = 𝑇 (𝑛) + 1. The closed form is clearly 𝑇 (𝑛) = 𝑛 + 1, as we can easily verify by substitution. The cost is linear.
 
-Answer: `O(1 + log(n))`
+Answer: `O(log(n + 1))`
 
 ---
 ### 3.1
@@ -104,6 +105,7 @@ let rec sum_r list = match list with
   | hd::tl -> hd + sum_r tl
   | [] -> 0
 ```
+
 b)
 ```ocaml
 let sum_i list = 
@@ -141,3 +143,39 @@ let even_items list =
   skip_items [] true list
 ```
 ### Exam Question
+a)
+```ocaml
+let rec item_in_list item = function
+  | hd::tl -> 
+    hd = item || item_in_list item tl
+  | [] -> false
+
+let rec intersect set_1 set_2 =
+  match set_1 with 
+    | hd::tl -> 
+      if item_in_list hd set_2 then
+        hd :: intersection tl set_2
+      else
+        intersection tl set_2
+    | [] -> []
+```
+
+b)
+```ocaml
+let rec subtract set_1 set_2 =
+  match set_1 with 
+    | hd::tl -> 
+      if item_in_list hd set_2 then
+        subtract tl set_2
+      else
+        hd :: subtract tl set_2
+    | [] -> []
+```
+
+c)
+Using append and existing `subtract` function. Unsure how to do it without append operation:
+```ocaml
+let union set_1 set_2 =
+  set_1 @ subtract set_2 set_1
+```
+Type: `val union : 'a list -> 'a list -> 'a list = <fun>`

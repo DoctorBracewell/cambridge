@@ -163,7 +163,8 @@ The second step is to find the lowest number of identified prime implicants that
 ![[Pasted image 20231011112008.png]]
 - Finally find the fewest number of prime implicants to cover the remaining minterms.
 ![[Pasted image 20231011112111.png]]
-
+# 3
+---
 ### Binary Adders
 **Half Adder** - A logic circuit that takes in two binary inputs and returns a sum and a carry output.
 ![[Pasted image 20231011112321.png]]
@@ -197,3 +198,92 @@ However this can get very complicated very quickly, especially with larger index
 - Commercially available logic gates usually only available with a restricted number of inputs, typically, 2 or 3.
 - System composition from sub-systems reduces design complexity, e.g., a ripple adder made from full adders 
 - Allows Boolean optimisation across multiple outputs, e.g., common sub-expression elimination. A SoP expression might only need two levels of gates, but could have many more gates and literals than if it was improved/factorised to have more levels of gates.
+# 4
+---
+### Hazards
+**Gate Propagation Delay** - Gate delay can lead to "hazards" which are brief unwanted logic changes at gate level.
+**Static Hazard** - The output undergoes a momentary transition when one input changes when it is supposed to remain unchanged.
+**Dynamic Hazard** - The output changes more than once when it was supposed to change just once.
+
+Hazards can be represented with *timing diagrams*, however they do not show "wobble" of signals or the small amount of time they take to changes states.
+![[Pasted image 20231013110529.png]]
+
+**Static Hazard**
+![[Pasted image 20231013110629.png]]
+
+**Dynamic Hazard**
+![[Pasted image 20231013110644.png]]
+
+**Fixing Static Hazards**
+![[Pasted image 20231013110823.png]]
+
+The above circuit has a static hazard because when `x = z = 1` and `y` changes from `1` to `0`:
+- `u` will change to `0`
+- `t` will change to `1`
+- `w` will change to `0`
+- `v` will change to `1`
+- `w` will change to `1`
+
+Because of the different delays between `u` and `t -> v`, `w` may end up changing to `0` for a small amount of time.
+
+To fix a static hazard, you can draw a Karnaugh Map of the output concerned. Then add an extra term which overlaps the essential terms. A static hazard will occur when there are adjacent `1`s or `0`s that are not in the same group.
+
+![[Pasted image 20231013111540.png]]
+
+### Multiplexers
+**Multiplexer** - Chooses 1 of many inputs to steer to a single output.
+
+![[Pasted image 20231013111753.png]]
+
+You can have an `n:1` mux, as long as you have enough inputs and enough *control inputs* (acting as bits) to create enough unique mappings for each input. For example, and `8:1` mux would need 3 control inputs.
+
+A multiplexer can also be used to to implement combination logic functions. The inputs can select which minterms appear at output (essentially this is using the mux in the opposite way, instead of `xyz` mapping one `I` to the output, its using `I` to map different combinations of `xyz` to output).
+
+![[Pasted image 20231013111950.png]]
+
+Alternatively you can use a smaller multiplexer for the same result by using one of the inputs as a variable. This can be demonstrated with a truth table. Essentially you are trying to determine if the output `f` can be determined by any "simpler" function of the inputs. In the example below, when `xy` is `00` or `01`, the output `f` is always just the complement of `z`, so `!z` can be used as an input for those two combinations of `xy`.
+
+![[Pasted image 20231013112821.png]]
+![[Pasted image 20231013112511.png]]
+### Demultiplexers
+**Demultiplexer** - The opposite of a mux, a single input is directed to exactly one output.
+![[Pasted image 20231013113102.png]]
+
+**Decoder** - Where the input `g` is always `1`, so the selector only determines which output will "receive" that `1`.
+
+Decoders or demultiplexers may be used to "enable" different systems.
+![[Pasted image 20231013113356.png]]
+
+A logical expression having DNF form can be implemented by ORing together the required minterms at the decoder output.
+### ROM
+**ROM** - Read Only Memory, usually written into once but readable any time. It uses `n` bits to store memory locations/addresses, and `m` bits to store data values. Total number of bits stored is `m * 2^n`
+
+ROM can implement combinational logic just by programming the output for each minterm combination into the correct memory location. If 3 bits are used to store the minterm in the address then only one bit is needed in the data to store the output of that minterm.
+Then the minterms can be looked up and the results immediately accessed (and then combined however necessary).
+Since only one data bit is needed for the result, multiple logic functions could be stored in one ROM.
+![[Pasted image 20231013114330.png]]
+### Programmable Logic Array
+![[Pasted image 20231013114546.png]]
+
+Essentially it is two planes that allow you to input any combination of minterms and will automatically perform the `and` and `or` operations on them to create the function result. This is useful because it allows you to create any DNF function instead of creating each individual logic operation for one specific function.
+### Programmable Array Logic
+![[Pasted image 20231013114810.png]]
+
+This is a simpler structure where the `OR` plane is not as programmable, but it is less efficient.
+### Memory Application
+**Non-Volatile** - Memory that remains intact when it loses power.
+The CPU uses busses to access external memory devices.
+
+**Address Bus** - Used to specify the memory location that is being read or written
+**Data Bus** - Used to carry the data to and from that location.
+Often more than one memory devices will be connected to the same data bus.
+
+**Bus Contention** - Where different memory devices want to use the data bus at the same time.
+**Tri-State Buffers** - A solution to bus contention, where a buffer can be `1`, `0` or "disconnected". This means that particular memory locations can retain their state but not send it along the data bus until it is free. This is usually controlled by "output-enable", which connects/disconnects the cell.
+
+Other control inputs are also provided for any particular memory cell.
+**Open Enable** - Whether or not the data is being sent along the data bus
+**Write Enable** - Determines whether the data is being writable or readable
+**Chip Select** - Determines if the chip is activated.
+Often these control signals are "active low", where they are enabled with a low voltage or a "0".
+
