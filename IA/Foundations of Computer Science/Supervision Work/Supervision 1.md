@@ -95,7 +95,7 @@ Not sure what a<sub>i</sub> is defined as? I think you would use the formal defi
 What does closed form mean?
 > Given 𝑛 + 1, it performs a constant amount of work (an addition and subtraction) and calls itself recursively with argument 𝑛. We get the recurrence equations 𝑇 (0) = 1 and 𝑇 (𝑛 + 1) = 𝑇 (𝑛) + 1. The closed form is clearly 𝑇 (𝑛) = 𝑛 + 1, as we can easily verify by substitution. The cost is linear.
 
-Answer: `O(log(n + 1))`
+Answer: `O(log(2n + 1))`
 
 ---
 ### 3.1

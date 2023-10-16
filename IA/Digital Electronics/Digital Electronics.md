@@ -286,4 +286,71 @@ Other control inputs are also provided for any particular memory cell.
 **Write Enable** - Determines whether the data is being writable or readable
 **Chip Select** - Determines if the chip is activated.
 Often these control signals are "active low", where they are enabled with a low voltage or a "0".
+# 5
+---
+**Sequential Logic** - Output depends on earlier inputs as well as current ones, implicitly contains "memory". A memory element stores data, typically one bit.
+### RS Latches
+**RS Latch** - A memory element with two inputs, "reset" and "set".
+![[Pasted image 20231016110541.png]]
+You use an RS latch to "hold" a bit of memory (`Q`) even when the inputs (`R`, `S`) are not active.
+
+When `R` is `1` and `S` is `0`, `Q` becomes `0`.
+When `R` is `0` and `S` is `1`, `Q` becomes `1`.
+However when `R` and `S` are 0, `Q` will remain whatever it was before the last input change.
+
+**State Transition Table** - Instead of truth tables, state tables are often more useful for sequential logic as they show the operation of a sequential logic circuit, where `Q'` is the next value of `Q`.
+![[Pasted image 20231016111317.png]]
+A state diagram can also be used:
+![[Pasted image 20231016111505.png]]
+
+### Clocks
+**Asynchronous Operation** - The inputs change whenever, and the output changes directly.
+However, almost all sequential circuits use synchronous operation - the output only changes in time with a global enabling system or a **clock**.
+
+**Clock** - A square wave signal at a particular frequency. Imposes order on state changes. Allows lots of states to update simultaneously.
+### Transparent D Latch
+![[Pasted image 20231016112249.png]]
+
+The same as the the RS-Latch, but also combined with the enabling system so that `R` and `S` cannot change out of time. Also added a `D` signal to control set/reset functionality, removing the illegal case thanks to the complement function into `R`.
+If `EN` is `0`, the latch will *always* be in the "hold" position. If `EN` is `1`, the latch functions normally.
+Transparent because `Q` follows `D` value.
+### Master-Slave Flip-Flops
+**Level** - A sequential circuit depending on the current level of the clock signal
+**Edge** - A sequential circuit changing output at the "rising" or "falling" edge of the clock signal.
+
+![[Pasted image 20231016113054.png]]
+
+- `D` changes at a random time
+- `Qint` reflects the change in `D` once `!CLK` changes to `1` 
+- `Q` reflects the change in `D` on the *rising edge* of the `CLK` signal.
+
+### Other Types of Flip-Flops
+- F-F Devices are more efficient than D-Type, but not on the course
+- J-K Flip-Flops and T-Type Flip-Flops were also in use but tended to be replaced by D-Type.
+
+**J-K Flip-Flop**
+![[Pasted image 20231016114615.png]]
+
+**T-Type Flip-Flop**
+![[Pasted image 20231016114640.png]]
+
+Often FFs will have additional *asynchronous inputs* that are used to force-reset or force-set them independent of the clock signal, used at e.g. startup.
+### Timing Constraints
+**Setup Time** - The minimum time that the data must be stable at the input before the clock input changes.
+**Hold Time** - The minimum time that the data must remain stable on the input after the clock input changes.
+![[Pasted image 20231016115116.png]]
+
+### Applications of Flip-Flops
+**Counters** - A clocked sequential circuit that goes through a predetermined sequence of states.
+Can be implemented as an n-bit binary counter, which has n FFs and 2^n states which go through in order. The FFs ensure that the counter only ever changes state in time with the clock signal. 
+Used for:
+- Counting
+- Producing delays of a particular duration
+- Sequencers for control logic in a processor
+- Dividing
+
+**Ripple Counters** - A bad, asynchronous counter design.
+![[Pasted image 20231016115659.png]]
+The FFs are not triggered with the same clock, making it difficult to know when the output is actually valid/correct.
+Propagation delay also builds up over time, limiting maximum clock speed before miscounting happens.
 

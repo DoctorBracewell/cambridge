@@ -139,4 +139,76 @@ let rec zip xs ys =
   | (x::xs, y::ys) -> (x, y) :: zip xs ys
   | _ -> []
 ```
+# 5
+---
+### Sorting
+**Sorting** - Once a set of items is sorted, it simplifies many other problems in computer science. Sorting has many applications, including:
+- Fast search
+- Fast merging
+- Finding duplicates
+- Inverting tables
+- Graphics algorithms
+
+**Sorting Complexity** - Measured such that a single unit of complexity is one **comparison**. Typically you can compare sorting algorithms by counting the number of comparisons `C(n)`
+There are `n!` permutations, each comparison eliminates half of the permutations, such that the lower bound of comparison is `O(n log n)`
+
+### Insertion Sort
+```ocaml
+let rec ins = function
+	| x, [] -> [x]
+	| x, hd::tl -> 
+		if x < hd then
+			x :: hd :: tl
+		else
+			hd :: ins (x, tl)
+
+let rec insort = function
+	| [] -> []
+	| hd :: tl -> ins (hd, insort tl)
+```
+
+Insertion sort works by inserting each element into its correct place then moving on to the next item until it reaches the end of the list.
+It's important to understand if there is anything you might know about the input you should decide which algorithm to use. For example, insertion sort performs in the worst case when the input is in reverse order, but very well when the data is mostly ordered already.
+Worst case complexity of insertion sort is `O(n^2)`
+### Quicksort
+**Quicksort** - A very popular divide-and-conquer algorithm for sorting data.
+- Chose a pivot element
+- Divide the input into two sublists:
+	- Those elements that are lower than or equal to the pivot
+	- Those elements that are greater than the pivot
+- Use recursive calls to sort those sublists
+- Combine the two sorted lists by appending to each other
+
+Quicksort's average case complexity is `O(n log n)`, but worst case is `O(n ^ 2)`.
+### Merge Sort
+**Merge Sort** - A sorting algorithm that recursively splits an input into multiple sub-lists, then combines them together in order.
+
+```ocaml
+let rec merge = function
+	| (x, []) -> x
+	| ([], y) -> y
+	| (hdx::tlx, hdy::tly) -> 
+		if hdx <= hdy then 
+			hdx :: merge (tlx, hdy::tly)
+		else
+			hdy :: merge (hdx::tlx, tly) 
+
+let rec mergesort = function
+	| [] -> []
+	| [x] -> [x]
+	| inp -> 
+		let k = List.length inp / 2 in
+		let l = mergesort (take k inp) in
+		let r = mergesort (drop k inp) in
+		merge (l, r) 
+```
+
+Complexity of merge sort is `O(n log n)`, *even in the worst case*, which is better than quicksort. However quicksort is often more used because it has a lower space complexity and most of the time performs better. 
+
+**Match the algorithm to the application**
+
+### Comparing Sorting Algorithms
+**Insertion Sort** - Simple to code, quadratic complexity
+**Quicksort** - Fast on average, quadratic complexity in the worst case
+**Mergesort** - Optimal in theory, often slower than quicksort in practise.
 
