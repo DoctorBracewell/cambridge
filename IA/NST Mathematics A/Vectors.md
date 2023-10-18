@@ -77,5 +77,19 @@ You can derive alternative equations for lines and planes.
 
 The two most useful properties is that for **orthogonal vectors the dot-product is `0`**, and for **parallel vectors the cross-product is `0`**.
 
+**Scalar Triple Product** - `a • (b ∧ c) = [a, b, c]`
+![[Pasted image 20231017090355.png]]
+![[Pasted image 20231017090402.png]]
+![[Pasted image 20231017090909.png]]
+An even permutation of the arrangement will keep the same sign, an odd one will change the sign.
 
+**Parallelpipeds** - ![[Pasted image 20231017091807.png]]
+Area of base = `|b| |c| sin θ = |b ∧ c|`
+Height = (component of `a` in direction perpendicular to `b` and `c`) = `a • (b ∧ c)/| b ∧ c |`
+-> Volume = `a • (b ∧ c)` = Scalar triple product
 
+**Vector Triple Product** - 
+![[Pasted image 20231017092850.png]]
+![[Pasted image 20231017092939.png]]
+
+**Vector Area** - 

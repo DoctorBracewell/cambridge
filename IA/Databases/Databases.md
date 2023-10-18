@@ -75,4 +75,47 @@ Consists of a number of 2D tables.
 However after an update there is a massive overhead in providing a consistent view. This can be mitigated with relaxed-consistency model, but can cause different users to have different versions of the database at different times. Additional challenges include:
 **Consistency** -
 **Availability** -
-****
+# 2
+---
+It is useful to have an implementation-independent technique to describe data stored in a database.
+### Entity-Relationship Model
+**Entity** - The "noun" of our model
+**Attributes** - Properties of an entity
+**Key** - Attribute who's value uniquely identifiers an entity instance
+**Scope** - Is limited, as we must explicitly define all the properties a particular entity has.
+![[Pasted image 20231017110830.png]]
+
+**Keys** - Should always be unique, formed by some algorithm, or a *synthetic key* that is automatically generated in the database and only has meaning there.
+**Relationships** - "verbs" between entities. For example, a `Person` "directed" a `Movie`.
+### Many-To-Many Relationship
+- Any `S` can be related to zero or more `T`s
+- Any `T` can be related to zero or more `S`s
+- The relationship can be symmetric or relate an entity domain to itself.
+- Relationships can also have attributes just like entities.
+- Ensure that value atomicity is kept, don't use **multi-value attributes**.
+
+![[Pasted image 20231017112853.png]]
+Designing a model can be complicated - there are many different methods that your database could use to represent data, certain forms may be too artificial or too simple based on your use case.
+### Many-To-One Relationship
+Can be denoted with an arrow, shows that some entity can be related to at most one entity of another type. 
+
+Suppose every member of `T` is related to at most one member of `S`.
+- The relationship is **many-to-one** between `T` and `S`
+- The relationship is **one-to-many** betweeen `S` and `T`
+### One-To-One Relationship
+One-To-One relationships are rare because mostly these can be represented as a single entity or as an attribute on one entity.
+
+One-To-One cardinality does not mean correspondence between all entities - some entities of a particular type may not have a connection to another one, even if overall those two entities have a one-to-one relationship.
+### Weak Entities
+**Weak Entity** - One that relies on the existence of another entity (or a relationship to that entity)
+![[Pasted image 20231017114328.png]]
+Weak entities have *discriminators* instead of keys, and can be uniquely identified using their discriminator and the key of their stronger entity.
+### Entity Hierarchy
+Entities can have OOP-like hierarchies, where some entity has a sub-entity that inherit all attributes and relationships of the parent entity.
+![[Pasted image 20231017114502.png]]
+### ER Diagrams
+- Forces you to think about the model you want to implement
+- Easy to learn and understand
+- Valuable when developing a model in collaboration with clients who don't know database implementation details.
+![[Pasted image 20231017114727.png]]
+
