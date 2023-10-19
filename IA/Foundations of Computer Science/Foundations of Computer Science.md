@@ -206,9 +206,31 @@ let rec mergesort = function
 Complexity of merge sort is `O(n log n)`, *even in the worst case*, which is better than quicksort. However quicksort is often more used because it has a lower space complexity and most of the time performs better. 
 
 **Match the algorithm to the application**
-
 ### Comparing Sorting Algorithms
 **Insertion Sort** - Simple to code, quadratic complexity
 **Quicksort** - Fast on average, quadratic complexity in the worst case
 **Mergesort** - Optimal in theory, often slower than quicksort in practise.
+# 6
+---
+OCaml has a very strong algebraic datatype system, including:
+### Enums
+**Enumeration** - A datatype formed of a finite number of different options. These options can hold additional values (of different types). Enums are pattern matchable and very powerful in allowing you to not represent invalid states.
+### Exceptions
+**Exception Handling** - Raising an exception abandons the current expression, and handling the exception attempts an alternative.
+Raising and handling can be separated in the source code.
 
+Introduce exception types using the `exception` keyword, and raise any particular one with `raise`.
+e.g.
+```ocaml
+exception Fail
+exception FailWithData m
+
+raise Fail
+raise FailWithData "oopsie!"
+```
+### Binary Trees
+```ocaml
+type 'a tree =
+	| Lf
+	| Br of 'a * 'a tree * 'a tree
+```

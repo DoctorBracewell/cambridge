@@ -92,4 +92,5 @@ Height = (component of `a` in direction perpendicular to `b` and `c`) = `a • (
 ![[Pasted image 20231017092850.png]]
 ![[Pasted image 20231017092939.png]]
 
-**Vector Area** - 
+**Vector Area** - Project a planar surface onto the planes `x=0`, `y=0`, `z=0`. Turn the area of these projections into a vector along that axis, then sum these together.
+![[Pasted image 20231019192734.png]]

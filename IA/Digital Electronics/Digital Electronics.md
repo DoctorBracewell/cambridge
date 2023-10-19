@@ -353,4 +353,22 @@ Used for:
 ![[Pasted image 20231016115659.png]]
 The FFs are not triggered with the same clock, making it difficult to know when the output is actually valid/correct.
 Propagation delay also builds up over time, limiting maximum clock speed before miscounting happens.
+# 6
+---
+### Synchronous Counters
+Ripple counters are generally a bad idea. A better version is:
+**Synchronous Counters** - 
+- All FF clock inputs are connected to the clock, so all outputs change at the same time
+- More complex logic is now needed to generate appropriate input signals.
+### Tables Used
+**Characteristic Table** - For a FF, gives the next state of the output in terms of its current state and current inputs.![[Pasted image 20231018115020.png]]or
+![[Pasted image 20231018115038.png]]
 
+**Excitation Table** - Given the current state, and the next wanted state, what should the input be?
+![[Pasted image 20231018115200.png]]
+
+For D-Type FFs, these tables are not very interesting, but for other types they should be used during the design process.
+
+A synchronous counter can be designed using a **modified state-transition table**:
+![[Pasted image 20231018115414.png]]
+Because the current and next states are used to fill in the inputs needed.
