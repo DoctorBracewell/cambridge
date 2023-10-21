@@ -162,10 +162,13 @@ The function `o_n` has a linear time complexity of `O(n)` because it counts down
 
 c)
 ```ocaml
-let rec o_n_log_n = function
-
+let rec o_n_log_n n = 
+	if n = 0 then 
+		1
+	else 
+		o_n_log_n (n / 2) + o_n (n)
 ```
-? unsure why a particular function would have `O(n log n)`
+The function `o_n_log_n` has a time complexity of `O(n log n)` because it as it counts down from `n`, it performs `n` steps (using the `o_n` function with a time complexity of `O(n)`), but then divides `n` by 2 so that has half of the remaining work to do. This means that `n` approaches `0` logarithmically, but the function is performing `n` steps each time so the time complexity is `O(n log n)`.
 
 d)
 ```ocaml
@@ -232,7 +235,7 @@ The `rotations` function uses the original list and the `next_rotation` function
 If the next rotation is not the same as the original list, then it adds the current rotation to the accumulated rotation and calls the `create_rotations` function again with the updated accumulator and the next rotation, until all rotations have been added.
 
 The time complexity of this function is `O(n^2)`. The `next_rotation` function has a linear time complexity, because it just traverses through the list once to find the last item, then adds this to the start. For a list of size `n`, `n + 1` steps are needed, so it has a time complexity of `O(n)`.
-The `rotations` function performs the `next_rotation` function `n` times, until the list has been fully rotated into its original form. This means that for a list of size `n`, it performs `n` steps.
+The `rotations` function performs the `next_rotation` function `n` times, until the list has been fully rotated into its original form. This means that for a list of size `n`, it performs `n(n+1)` steps.
 Therefore the time complexity of my `rotations` function is `O(n^2)`.
 
 ---
@@ -272,9 +275,26 @@ let least n xs =
 - OCaml warns against inexhaustive pattern matches
 - Structures can be used to group related labelled properties and functions under one distinct name
 - Important to use let bindings/take computations out of recursion when you can, improves efficiency/less wasted memory
-- Equality Type - a type whose values are able to be tested for equalty. Forbidden on functions and abstract types:
+- Equality Type - a type whose values are able to be tested for equality. Forbidden on functions and abstract types:
 	- defined for integers, reals, characters, bools, tuples, lists, records
 	- functions type contains equality type variables if it performs polymorphic equality
 	- e.g. can be used to implement comparisons of homemade data types such as union of sets
-- Many differnet sorting algorithms with differnet complexities, advantages, drawbacks.
+- Many different sorting algorithms with different complexities, advantages, drawbacks.
 - Insertion sort inserts items one at a time into their sorted place
+- Quicksort works by divide-and conquer, diving items above and below a pivot point and then recursively quicksorting each side
+- Mergesort works by splitting into lists with one item and then merging those lists together in order
+### Chapter 4
+- Concrete data - constructions that can be inspected, taken apart or joined.
+- e.g., `exn` structure can be added to, inspected, trapped, contain more data, etc.
+- Enumeration type - a finite number of options, each one can contain data. Able to be pattern matched upon
+- `option` type can either be `Some 'a'` or `None`. useful as a return type for functions that may have a result, as it forces the programmer to handle "invalid" or null cases.
+- exceptions are raised when failure is discovered and handled elsewhere. Programmers can define their own exceptions (with data) and then pattern match again them to retry or gracefully fail with error messages
+- Trees are branching structures consisting of nodes and branches. Nodes carry values called labels.
+- A tree where each node has one branch and a label is a list. A tree where each labelled node has two branches is a binary tree.
+- Binary trees can be implemented as a recursive enumeration type. Often tree functions need to be implemented by the programmer (because ocaml stdlib writers hate us?)
+- Balanced binary tree - one where at each node, both subtrees are of similar size.
+- preorder traversal: visiting the label, then left subtree, then right subtree
+- inorder traversal: visiting the left subtree, then label, then right subtree
+- postorder traversal: visiting the left subtree, then right subtree, then label
+- trees are useful for algorithms and can become tree-based data structures, such as a *binary search tree*, used for binary search (more efficient than linearly searching a list).
+

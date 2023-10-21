@@ -55,7 +55,7 @@ Particularly useful in electronics because high/low voltages can be used. Higher
 `a + !a = 1`
 
 `a . 0 = 0`
-`a . a = 0`
+`a . a = a`
 `a . 1 = a`
 `a . !a = 0`
 
@@ -371,4 +371,30 @@ For D-Type FFs, these tables are not very interesting, but for other types they 
 
 A synchronous counter can be designed using a **modified state-transition table**:
 ![[Pasted image 20231018115414.png]]
-Because the current and next states are used to fill in the inputs needed.
+Because the current and next states are used to fill in the inputs needed. But for a D-FF, `Q' = D`.
+
+![[Pasted image 20231020111109.png]]
+
+Hence the logic diagram for Q0, Q1, Q2 is:
+![[Pasted image 20231020111404.png]]
+### Shift Registers
+**Shift Register** - A circuit of FFs connected together so that clock signals make the outputs move in a stepwise fashion.
+![[Pasted image 20231020112357.png]]
+![[Pasted image 20231020112348.png]]
+
+Shift registers can be used to turn data into "parallel in", "serial out". This is important for e.g.data buses, where data must be sent one bit at a time.
+![[Pasted image 20231020112512.png]]
+### System Timing
+**Clock Period** - `T`, the time between rising edges of a repetitive clock signal.
+**Clock Frequency** - `1/T`, the reciprocal of the clock period.
+Unit of frequency is Hz, though modern processor operate up to several GHz
+Higher clock frequency the more "work" a digital system can accomplish.
+
+**Set-Up Time Constraint** - 
+![[Pasted image 20231020113503.png]]
+![[Pasted image 20231020113548.png]]
+
+**Clock Skew** - When the clock signal does not reach all circuits at the same time.
+### Metastability
+**Metastability** - Sometimes an FF changes within illegal bounds, e.g. setup time or hold time. `Q` is then undefined, and the FF can take on an input in the invalid range.
+After some time period, the voltage will stabilise to a valid condition

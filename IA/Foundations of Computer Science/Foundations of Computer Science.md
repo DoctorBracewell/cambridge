@@ -234,3 +234,28 @@ type 'a tree =
 	| Lf
 	| Br of 'a * 'a tree * 'a tree
 ```
+# 7
+---
+**Dictionary** - Attaches values to keys. Contains operations such as:
+- lookup
+- update/insert
+- delete
+- empty
+- Missing
+
+**Implementations**:
+- Association list, a list of tuples. `O(n)` lookup time, `O(1)` update time.
+- Binary search tree, a binary tree where keys can be in some order, `O(log n)` lookup, `O(n)` if unbalanced.
+- Often OCaml updates structures by using the initial structure to return a new structure with changes. The original is not changed. 
+
+**Tree Traversal**:
+- preorder: start with root node, take the label, then go down the left branch recursively, then go down the right recursively
+- inorder: start with the root node, go down the left branch recursively, then take the label, then go down the right recursively
+- postorder: start with the root node, go down the left branch recursively, go down the right branch recursively, then take the label
+
+**Arrays** - An indexed data structure. Usually updated in place, or *mutable*. Differ from lists and trees as you don't have to start at the "top".
+**Functional Array** - Maps integers to data. Can be implemented as binary search trees for efficient `O(log n)` lookup.
+![[Pasted image 20231020103937.png]]
+
+Subscripts or indices can be represented in binary, because it can represent *conditional logic*.
+Binary is often preferred for digital electronics because of this, not in spite of it.

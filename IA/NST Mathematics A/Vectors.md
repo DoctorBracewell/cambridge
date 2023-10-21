@@ -94,3 +94,47 @@ Height = (component of `a` in direction perpendicular to `b` and `c`) = `a • (
 
 **Vector Area** - Project a planar surface onto the planes `x=0`, `y=0`, `z=0`. Turn the area of these projections into a vector along that axis, then sum these together.
 ![[Pasted image 20231019192734.png]]
+
+**The vector area of a closed surface is `0`**.
+**Vector Area** = Scalar area of the surface * unit vector parallel to surface.
+
+**General Basis Vectors** - Any 3 non-coplanar vectors constitute a basis. If they are all perpendicular the basis is *orthogonal*, if they are also unit vectors the basis is *orthonormal*.
+
+In an orthogonal base, for any vector, you can find the component in one of the directions with
+`(u • a) / (a • a) = (u • a) / (|a|^2)`. In the cartesian basis, this simplifies to `(u • a) / 1`
+
+**Cylindrical Polar Coordinates**:
+![[Pasted image 20231020214906.png]]
+An orthogonal base where a point is represented with `(r, θ, z)`, where `r` represents the radius of the cylinder, `θ` the angle and `z` the height above the cylinder.
+
+Trigonometry can give you components of a cartesian point (`z = z`, simply):
+![[Pasted image 20231020215603.png]]
+such that
+![[Pasted image 20231020215714.png]]
+There are also new coordinate directions, these are all *orthonormal*:
+![[Pasted image 20231020215832.png]]
+![[Pasted image 20231020220321.png]]
+However, two of these depend on the *direction* (i.e, `θ`) already being defined, and are not constant like `(i, j, k)`.
+
+Final notes:
+![[Pasted image 20231020215920.png]]
+![[Pasted image 20231020215941.png]]
+^ able to be expressed with just two basis vectors because the value of `θ` is already "included" in the `er` vector
+
+**Plane Polar Coordinates** - Same as cylindrical but without a `z` component.
+
+**Spherical Coordinates**:
+![[Pasted image 20231020220639.png]]
+An basis where a point is represented with `(r, θ, φ)`, where `r` distance of the point from the origin, `θ` the angle down from the `z` axis (north pole) and `φ` angle along from the `x` axis (`Q->P`) (anticlockwise).
+
+![[Pasted image 20231020221816.png]]
+![[Pasted image 20231020221845.png]]
+![[Pasted image 20231020221902.png]]
+
+Basis vectors:
+![[Pasted image 20231020221948.png]]
+![[Pasted image 20231020221956.png]]
+and simply:
+![[Pasted image 20231020222008.png]]
+
+
