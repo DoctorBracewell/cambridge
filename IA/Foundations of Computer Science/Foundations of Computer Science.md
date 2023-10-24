@@ -259,3 +259,27 @@ type 'a tree =
 
 Subscripts or indices can be represented in binary, because it can represent *conditional logic*.
 Binary is often preferred for digital electronics because of this, not in spite of it.
+# 8
+---
+**Functions as Values** - In ocaml functions can be passed around as parameters, returned as results, exist in lists/arrays etc, but NOT tested for equality.
+Functions can be defined without names (lambdas).
+
+`let double = fun n -> n * 2` is the same as `let double n = n * 2`
+
+`function` keyword is used for pattern matching, as it automatically accepts a parameter and matches it against following patterns.
+
+**Currying** - Expressing a function taking multiple arguments as taking *nested functions*. 
+`let multiply = fun n1 -> (fun n2 -> n1 * n2)`
+
+Passing in not all parameters will return a version of the curried functions that is not fully completed - you can call this new function with the remaining parameters to get the final results.
+e.g
+`let prefix a b = a ^ b`
+`let professor_prefix = prefix "Professor "`
+`let bracewell = professor_prefix "Bracewell"`
+this is known as *partial application*.
+
+You can also define custom functions that are then used in other functions, for example a comparison function for a custom type, or a filter function for filtering items in a list (predicates).
+
+**Map** - A popular function used to apply a transformation to every item in a list. It takes in anonymous function.
+
+One use of partially-applied functions is matrix multiplication. Since one row needs to be multiplied with many columns on the other matrix, you can write a function that performs the `row * column ` step, and then partially apply that to a row and then *re-use* that function for all the columns it needs to be multiplied by.

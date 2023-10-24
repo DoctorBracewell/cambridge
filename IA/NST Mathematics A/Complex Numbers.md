@@ -7,3 +7,4 @@ Complex numbers can be added, multiplied (thanks to the identity `i*i = -1`), su
 ![[Pasted image 20231021125926.png]]
 
 Complex numbers inherit commutation and associativity from real numbers
+
