@@ -5,7 +5,7 @@ Contains everything required to build a specific circuits, including:
 - Power Strip
 - Clock
 - Switches
-- LED DIsplay
+- LED Display
 - GND and 5V
 ![[Pasted image 20231018110812.png]]
 

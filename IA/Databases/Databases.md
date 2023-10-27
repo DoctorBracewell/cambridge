@@ -118,4 +118,62 @@ Entities can have OOP-like hierarchies, where some entity has a sub-entity that 
 - Easy to learn and understand
 - Valuable when developing a model in collaboration with clients who don't know database implementation details.
 ![[Pasted image 20231017114727.png]]
+# 3
+---
+The model for representing data is based of mathematical sets.
 
+Suppose that `S` and `T` are sets. The cartesian product is the set:
+![[Pasted image 20231024111007.png]]
+![[Pasted image 20231024111121.png]]
+
+A binary relation over `S X T` is any set `R` with:
+![[Pasted image 20231024111310.png]]
+
+n-ary relation:
+![[Pasted image 20231024111508.png]]
+or represented in tables:
+![[Pasted image 20231024111644.png]]
+
+This can be turned into a more "database-like" form by:
+- Associating a name with each domain (this is the *attribute*)
+- Use records - sets of pairs each associating an attribute name with a value in another domain.
+This leads to:
+![[Pasted image 20231024111847.png]]
+i.e
+![[Pasted image 20231024112351.png]]
+is the same as:
+![[Pasted image 20231024112329.png]]
+
+**Database Query Language** - Takes an input of a collection of a relation instances, outputs a single relation instance.
+
+Relational Algebra:
+![[Pasted image 20231024112447.png]]
+where:
+- `p` is a boolean predicates over attribute values
+- `X` is a set of attributes
+- `M` is a renaming map
+
+Q is a recursive type, it is formed of repeated expressions all the way down until all expressions becomes `R`, a base relation.
+
+**Examples**:
+Selection (all attributes with predicate)
+![[Pasted image 20231024113202.png]]
+Projection (certain attributes)
+![[Pasted image 20231024113411.png]]
+Renaming (renames attributes)
+![[Pasted image 20231024113451.png]]
+Union (combines selections from two relations)
+![[Pasted image 20231024113702.png]]
+Intersection (finds same selections from two relations)
+![[Pasted image 20231024113740.png]]
+Difference (finds all non-shared records)
+![[Pasted image 20231024114043.png]]
+Product (forms records of each possible enumeration)
+![[Pasted image 20231024114056.png]]
+![[Pasted image 20231024114131.png]]
+
+**Natural Join** - Joining over a foreign key
+![[Pasted image 20231024114743.png]]
+![[Pasted image 20231024114841.png]]
+
+**Redundancy** - Storing data that can be computed from another source in the database - any manner of storing data in two ways.

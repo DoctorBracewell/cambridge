@@ -283,3 +283,41 @@ You can also define custom functions that are then used in other functions, for 
 **Map** - A popular function used to apply a transformation to every item in a list. It takes in anonymous function.
 
 One use of partially-applied functions is matrix multiplication. Since one row needs to be multiplied with many columns on the other matrix, you can write a function that performs the `row * column ` step, and then partially apply that to a row and then *re-use* that function for all the columns it needs to be multiplied by.
+# 9
+---
+**Sequential Program** - A program that takes some input and runs to completion with an output. For example exhaustive search, data processing.
+**Reactive Program** - A program that runs as long as necessary and responds to incoming inputs and gives outputs or performs side effects. For example control tasks, resource allocation, scheduling incoming jobs.
+
+Reactive programs need a functional model to get inputs, evaluate and act upon those inputs, for example a *perception-action loop*.
+
+**Pipeline**:
+![[Pasted image 20231025102556.png]]
+where:
+- Produce sequence of items
+- Filter sequence in stages
+- Consume results as needed
+- Lazy lists join the stages together.
+
+**Lazy Lists** - Lists of possibly infinite length
+- Elements computed upon demand
+- Avoids waste if there are many solutions
+- Infinite objects are a useful abstraction
+
+OCaml implements laziness by delaying evaluation of the tail.
+`type unit = ()`
+
+You can delay evaluation of an expression by putting it in an anonymous function with a unit arguments:
+`fun () -> E`
+
+**Type of a Lazy List**:
+```ocaml
+type 'a seq =
+	| Nil
+	| Cons of 'a * (unit -> 'a seq)
+
+let head (Cons (x, _)) = x
+let tail (Cons (_, xf)) = xf ()
+```
+# 10
+---
+
