@@ -74,3 +74,24 @@ Consider a pendulum swinging with angular momentum, therefore angular displaceme
 
 Therefore you can differentiate to find velocity of acceleration of the pendulum at any point:
 ![[Pasted image 20231027104413.png]]
+
+**Hyperbolic Functions**:
+![[Pasted image 20231028093403.png]]
+`cos(ix) = cosh(x)`
+`sin(ix) = isinh(x)`
+`tan(ix) = itanh(x)`
+
+**Identities**:
+![[Pasted image 20231028093605.png]]
+![[Pasted image 20231028093619.png]]
+![[Pasted image 20231028093650.png]]
+
+**Inverse Hyperbolic Functions**:
+`sinh(y) = x`
+`1/2 (e^y - e^-y) = x`
+`e^2y - 1 = 2xe^y`
+`e^2y - 2xe^y - 1 = 0`
+`e^y = x +/- sqrt(x^2 + 1)`
+`y = ln ( x + sqrt(x^2 + 1) )` (negative root is discarded)
+^ and similar for cosh
+`
