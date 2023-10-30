@@ -321,3 +321,57 @@ let tail (Cons (_, xf)) = xf ()
 # 10
 ---
 
+# 11
+---
+**Procedural Programs**:
+- Can change the machine state (variables or sending/receiving data)
+- interact with its environment
+- use control structures
+
+They use data abstractions of computer memory - e.g. references to memory cells, arrays as blocks of cells, linked structures using e.g. pointers to memory addresses.
+In functional program the store is an invisible device inside a computer, in procedural it is visible.
+
+**Reference** - Storage locations, can be created, inspected or updated.
+`'a ref` - a reference to type `'a`
+`ref E` - create a reference with initial contents `E`
+`!P` return the current contents of reference `P`
+`P := E` - update the contents of `P` to `E`
+
+Types:
+`ref : 'a -> 'a ref`
+`! : 'a ref -> 'a`
+`:= : 'a ref -> 'a -> unit`
+
+**Aliasing** - When two values refer to the same mutable cell.
+
+**Commands** - Expressions with effects. Basic commands can update references, write to files etc. A typical command will return the empty tuple/unit type. 
+`C1;C2;C3...Cn` will evaluate all `C`s and then return the value of `Cn`.
+OCaml provides a `while` loop construct.
+
+You could implement *private references* in OCaml by declaring the reference in a let binding for a function, and then returning that function. Or even an entire class such as:
+```ocaml
+let student name age height subject = 
+	let _name = ref name in
+	let _age = ref age in
+	let _height = ref height in 
+	let _subject = ref subject in
+
+	let get_name = fun () -> !_name in
+	let get_age = fun () -> !_age in
+	let get_height = fun () -> !_height in
+	let get_subject = fun () -> !_subject in
+
+	let set_name name = _name := name in
+	let set_age age = _age := age in
+	let set_height height = _height := height in
+	let set_subject subject = _subject := subject in
+
+	let had_birthday = fun () -> _age := (!_age + 1) in
+	let lost_both_legs = fun () -> _height := (!_height - 20) in
+
+	(get_name, get_age, get_height, get_subject, set_name, set_age, set_height, set_subject, had_birthday, lost_both_legs)
+;;
+```
+
+OCaml also implements mutable arrays as collections of references.
+

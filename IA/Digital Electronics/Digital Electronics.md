@@ -514,4 +514,77 @@ Some materials are better conductors or insulators of electricity because the el
 When a voltage is applied to an insulator, the electrons may distort but no charge will flow until breakdown occurs.
 
 **Semiconductors** - A material with a low electron density but are still free to move. In silicon, as temperature rises so does conductivity because bonds break.
+n-type silicon is doped with arsenic (the donor), which includes another free electron for electrical charge.
+p-type silicon is doped with boron (the acceptor) which takes an electron and leaves a hole.
+
+**Metal Oxide Semiconductor Field Effect** - fabricated from n-type and p-type silicon, used to implement the majority of electrical devices.
+
+Conductors made to have a specific value of resistance are called resistors.
+`R = V/I`
+### Electronic Circuits
+**Kirchhoff's Current Law** - The sum of currents entering a junction is 0, or what goes in equals what comes out
+![[Pasted image 20231030110846.png]]
+
+**Kirchhoff's Voltage Law** - In any closed loop of an electric circuit the sum of all the voltages in that loop is 0.
+![[Pasted image 20231030110951.png]]
+
+**Potential Divider** - A circuit that uses two (or more?) resistors to split a voltage into a desired value.
+![[Pasted image 20231030111202.png]]
+(circle represents an ideal voltage source, e.g. a perfect battery)
+- V = V1 + V2
+- V1 = IR1
+- V2 = IR2
+- V = I(R1 + R2)
+- I = V/(R1 + R2)
+- V2 = VR2/(R1 + R2)
+
+Not all circuits have linear characteristics (see below), so a graphical approach can be used.
+
+**Linear** - 
+![[Pasted image 20231030111735.png]]
+
+**Linear Circuit Graph**
+- Voltage (x-axis) is 10
+- Resistors (y-axis) increases in proportion to resistance values
+![[Pasted image 20231030111709.png]]
+
+**Non-Linear Circuit Graph**
+![[Pasted image 20231030112146.png]]
+Circuit has device (e.g. transistor) that does not have a linear relationship between I, V, R.
+
+![[Pasted image 20231030112207.png]]
+Graph of device current now non-linear.
+### Transistors & Gates
+**p-n Junction** - The key to building devices is combing p and n type semiconductors to form a junction. Electrons (from n-type) diffuse onto p-type holes, and holes (from p-type diffuse into n-type electrons.
+This leaves a depletion region with no free charges, space charge gives rise to electric field that opposes diffusion. Similar to a one-way system, this leaves a negative charge on p side that cannot move back to n, and a positive charge on n side that cannot move back to p
+![[Pasted image 20231030112527.png]]
+
+**Reverse Bias** - Sending +ve charge to n-side simply increase space-charge region, almost impossible for current to flow because electrons cannot move between the depletion region. 
+**Forward Bias** - Sending +ve charge to p-side, holes are send towards -ve region and electrons are sent towards +ve region, current diffusion increases and current can flow.
+
+**n-channel MOSFET** - A basic transistor
+![[Pasted image 20231030113036.png]]
+
+Implementation:
+![[Pasted image 20231030113653.png]]
+
+**p-channel MOSFET** - An alternative transistor that is the negation of n-channel - when G is +ve, no current will flow.
+![[Pasted image 20231030113307.png]]
+
+Implementation:
+![[Pasted image 20231030113412.png]]
+
+**n-MOSFET Characteristic*:
+![[Pasted image 20231030113759.png]]
+![[Pasted image 20231030113859.png]]
+
+**n-MOS Inverter**:
+![[Pasted image 20231030113916.png]]
+Used to implement a transistor that gives out a specific voltage output, in an inverted manner (a high voltage in correlates to a low voltage out).
+
+n-MOS logic has problems:
+- Power consumption (when transistor ON)
+- Slow output transition times from low-high voltage levels.
+
+**CMOS**
 
