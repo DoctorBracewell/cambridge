@@ -320,7 +320,49 @@ let tail (Cons (_, xf)) = xf ()
 ```
 # 10
 ---
+**Tree Traversal** - Visiting every single node in a tree.
 
+**Preorder** - Visiting the node, then visiting the left tree, then visiting the right tree
+**Inorder** - Visiting the left tree, then visiting the node, then visiting the right tree
+**Postorder** - Visiting the left tree, then right tree, then node.
+^ These are depth-first traversals
+
+**Breadth-First** - Visiting all nodes in each layer
+**Depth-First** - Visiting nodes all the way to the bottom of the tree.
+
+Binary trees can act as *decision trees*.
+Breadth-first search can be very inefficiently implemented.
+
+```ocaml
+let rec nbreadth = function 
+	| [] -> [] 
+	| Lf :: ts -> 
+		nbreadth ts 
+	| Br (v, t, u) :: ts -> 
+		v :: nbreadth (ts @ [t; u])
+```
+Works by removing tree from head, and putting sub-trees onto end of list (VERY inefficient)
+
+**Queue** - A new datatype for first-in-first-out.
+This can be easily represented just by a pair of lists! 
+- Add new items to rear list
+- Remove item from front list (if empty then REVERSED REAR becomes FRONT list), initialise new empty rear list
+- Amortized cost is `O(n)`
+
+`type 'a queue = Q of 'a list * 'a list`
+^ enumeration for extra protection so users don't accidentally instantiate pair of lists as queue.
+
+Can use a queue for breadth first search by adding node, then enqueue both subtrees and dequeue last sub tree. This puts the next "level" of subtrees later in the queue to be traversed, and then continues from the neighbouring tree (enqueued from the level above).
+
+**Iterative Deepening** - Use DFS to get benefits of BFS. Recompute nodes at depth `d` instead of storing them. Essentially this preforms repeated DFS, discarding previous results. Improves space complexity, time complexity stays same.
+![[Pasted image 20231030173511.png]]
+
+**Stack** - An abstract data structure behind depth-first search, can be implemented in OCaml as just a list. Important to look at operations of each data structure and consider how to implement with minimal complexity.
+![[Pasted image 20231030173823.png]]
+
+The data structure determines the search method!
+![[Pasted image 20231030173835.png]]
+**Priority Queue** - An ordered sequence with some sort of ranking to the nodes. Using heuristics to improve efficiency.
 # 11
 ---
 **Procedural Programs**:

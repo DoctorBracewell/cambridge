@@ -94,4 +94,8 @@ Therefore you can differentiate to find velocity of acceleration of the pendulum
 `e^y = x +/- sqrt(x^2 + 1)`
 `y = ln ( x + sqrt(x^2 + 1) )` (negative root is discarded)
 ^ and similar for cosh
-`
+
+**Circle** - `x = acosθ`, `y = asinθ`
+**Ellipsis** - `x = acosθ`, `y = bsinθ`, eccentricity =
+![[Pasted image 20231031091127.png]]
+**Hyperbolae** - `x = +/- acoshθ`, `y = bsinhθ`

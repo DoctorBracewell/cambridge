@@ -585,6 +585,36 @@ Used to implement a transistor that gives out a specific voltage output, in an i
 n-MOS logic has problems:
 - Power consumption (when transistor ON)
 - Slow output transition times from low-high voltage levels.
+# 12
+---
+**CMOS** - Uses nMOS and pMOS transistors.
+CMOS switching is much smoother:
+![[Pasted image 20231103003130.png]]
+CMOS transistors only dissipate power when they are switching (more power efficient).
 
-**CMOS**
+For both n and p-type MOS transistors
+– If there is no potential difference (pd) between Gate (G) and Source (S), the transistor is Off, i.e., an open circuit between Source (S) and Drain (D)
+– If there is a sufficiently large pd between Gate and Source, the transistor is On, i.e., a short circuit between Source (S) and Drain (D)
 
+**CMOS NAND Gate** -
+![[Pasted image 20231103003307.png]]
+
+**CMOS NOR Gate** - 
+![[Pasted image 20231103003345.png]]
+
+**Logic Families** - Different types of transistors with trade offs and drawbacks (performance, power, speed, switching smoothness etc.) Best not to mix.
+
+Signals are susceptible to noise corruption.
+**Tolerance** - Ability to withstand corruption, quantified by noise margin
+![[Pasted image 20231103003549.png]]
+### Computer Architecture
+**Simple Computer** - 
+![[Pasted image 20231103003708.png]]
+
+A computer is defined by its instruction set an its architectural state (registers, memory, etc.)
+
+**Microarchitecture** - The specific layout of registers, ALUs, FSMs, memories and other logical building blocks needed to implement an architecture.
+**Datapath** - Operates on words of data, maths/logic, 16/32 bit memory, etc.
+**Instruction Decoder** - Decodes and executes instructions, knows what each instruction does.
+
+![[Pasted image 20231103005045.png]]

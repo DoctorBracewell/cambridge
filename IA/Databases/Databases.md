@@ -177,3 +177,62 @@ Product (forms records of each possible enumeration)
 ![[Pasted image 20231024114841.png]]
 
 **Redundancy** - Storing data that can be computed from another source in the database - any manner of storing data in two ways.
+# 4
+---
+**How can an ER model be implemented relationally**?
+![[Pasted image 20231031110845.png]]
+
+**One Large table** 
+![[Pasted image 20231031110835.png]]
+But this has a number of problems:
+- May want to insert a new person not attached to a film (insertion)
+- Lose information about a director if all of their films are deleted (deletion)
+- Updating director may do it for one record, but for all ones (update)
+- Transaction implementing a simple update has a lot of work to to (could end up locking entire table).
+
+**Break into Multiple Tables**:
+![[Pasted image 20231031111348.png]]
+![[Pasted image 20231031111355.png]]
+Connected by:
+![[Pasted image 20231031111410.png]]
+or represented in SQL:
+```sql
+SELECT movie_id, title, year, person_id, name, birthYear 
+FROM movies 
+JOIN directed ON directed.movie_id = movies_id 
+JOIN people ON people.person_id = person_id
+```
+
+Both relations and entities are implemented in tables. This makes it easier to maintain consistency during updates to the table, but there is more complexity involved when joining the tables.
+
+**Key** - A unique handle on a record. Or a more specific set theory definition:
+![[Pasted image 20231031112220.png]]
+
+**Foreign Key** - 
+![[Pasted image 20231031113058.png]]
+Projection of Z in S (`SELECT Z FROM S`) is a member of projection of Z in R. This ensures that foreign keys do not link to non-existent records.
+
+**Referential Integrity** - A database has referential integrity when all foreign key constraints are satisfied.
+
+**Implementing ERs as relational schemas**:
+![[Pasted image 20231031113532.png]]
+- many to many -> R(**X**, **Z**, U)
+- one-to-many -> R(**X**, Z U)
+
+However another table may not be required:
+- Rather than implementing a new table R, could expand T to T(**X**, Y, Z, U) and let Z, U be null for rows not in the relationship.
+
+![[Pasted image 20231031114027.png]]
+Suppose there are two many-to-many relationships.
+Instead of R(**X, Z**, U) and Q(**X, Z**, V) just have:
+
+RQ(**X, Z, type**, U, V) and U or V will be `null` for relationships.
+^ however this is **redundancy**, because the `type` column would indicate which U or V would be `null`.
+
+**Implementing Weak Entities** -
+![[Pasted image 20231031114852.png]]
+![[Pasted image 20231031114836.png]]
+
+**Implementing Entity Hierarchy** -
+![[Pasted image 20231031114911.png]]
+![[Pasted image 20231031114926.png]]
