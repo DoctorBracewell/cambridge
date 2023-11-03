@@ -617,4 +617,26 @@ A computer is defined by its instruction set an its architectural state (registe
 **Datapath** - Operates on words of data, maths/logic, 16/32 bit memory, etc.
 **Instruction Decoder** - Decodes and executes instructions, knows what each instruction does.
 
-![[Pasted image 20231103005045.png]]
+**Datapath Example**
+![[Pasted image 20231103005603.png]]
+- Address supplied to PC goes to memory to fetch instruction, program counter is incremented.
+- Multiplexer can be used to enable branching
+- Instruction decoded, e.g:
+	![[Pasted image 20231103005437.png]]
+- Instruction could lead to branch - jump command takes current PC value and adds operand (jump value) to it using ALU.
+
+Single cycle has weaknesses include needed 3 adders, clock cycle needs to be long enough for slowest instruction.
+
+**Multicycle Processor** - Instructions are broken into multiple shorter, faster steps. Complex instructions take multiple steps, one adder and one memory required.
+![[Pasted image 20231103010328.png]]
+However more complex design and controller is FSM rather than combinational logic.
+### Execution Time
+![[Pasted image 20231103010402.png]]
+Difficult to exploit computation speed unless differences are large.
+**Pipelining** - Temporal parallelism because it speeds up processing without duplicating hardware.
+Just divides the single processor cycle into e.g 5 stages, (fetch, decode, execute, memory read/write, register write). Each of these steps can happen at the same time *with different data*.
+![[Pasted image 20231103010557.png]]
+![[Pasted image 20231103010606.png]]
+However comes with hazards:
+- **Data hazard** - When an instruction tries to read a register that has not yet been written back
+- **Control hazard** - When the decision of what instruction to fetch next has not been made by the time the fetch takes place.
