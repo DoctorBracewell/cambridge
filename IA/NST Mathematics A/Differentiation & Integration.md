@@ -1,3 +1,4 @@
+# Differentiation
 **First Principles** - 
 ![[Pasted image 20231031091250.png]]
 ^ Find the gradient between two points, as the distance between those two points tend to `0`.
@@ -51,3 +52,36 @@ Another way to perform this is:
 
 **Curve Sketching** - 
 ![[Pasted image 20231102094658.png]]
+
+# Integration
+**Integration as an area** - Integration can be understood as finding the area underneath a graph between two points `a` and `b` (definite).
+![[Pasted image 20231104174553.png]]
+**Integration as a limit of a sum** - As the difference between each points tends to `0`, the sum of all sub-areas becomes the total area underneath the graph.
+![[Pasted image 20231104174637.png]]
+If the function is continuous and bounded on a finite interval then the integral converges.
+Sometimes bounds can be infinite, which can either converge or diverge.
+
+**Integral Rules** -
+![[Pasted image 20231104174759.png]]
+
+**Indefinite Integration** - The *inverse* to differentiation, yielding a function without bounds.
+Define a function `F(x)` that is the integral of another `f(u)`, then differentiate this function using first principles:
+![[Pasted image 20231104174832.png]]
+Evaluating this limit gives:
+![[Pasted image 20231104174928.png]]
+which leads to the
+
+**1st Fundamental theorem of calculus** -
+![[Pasted image 20231104174958.png]]
+
+**2nd Fundamental theorem of calculus** - 
+![[Pasted image 20231104175034.png]]
+provable by rewriting as limit of a sum.
+
+There are an infinite number of functions that differentiate to the same thing, differing only by an **arbitrary constant**.
+
+**Finding Integrals**
+
+Reversing differentiation:
+![[Pasted image 20231104175410.png]]
+![[Pasted image 20231104175357.png]]

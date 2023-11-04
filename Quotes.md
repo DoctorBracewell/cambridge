@@ -22,4 +22,6 @@
 > - (**The RA lends itself to endlessly amusing Tripos questions.)**
 > *- David Greaves, Databases, Computer Science Tripos Part IA*
 
-
+> **Theorem** - A very important true statement
+> **Proposition** - A less important but nonetheless still interesting true statement.
+> *- Marcelo Fiore, Discrete Mathematics, Computer Science Tripos Part IA*

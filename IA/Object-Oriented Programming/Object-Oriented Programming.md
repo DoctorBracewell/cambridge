@@ -23,3 +23,12 @@ Java was intended as an early language to connect many different devices. Tradit
 JVM compiles to intermediate representation (bytecode) which runs on JVM (which ships with a lot of libraries).
 Source code -> bytecode is the significant compilation step, but bytecode -> machine code still takes some time and convert it so slight performance hit.
 
+**Unit Tests** - Tests that test specific one chunk or unit of code (class, function, etc.)
+**Integration Testing** - Testing the overall project in the context its designed for
+**Regression Testing** - Ensuring that code changes don't break things (e.g. running all tests after a change)
+
+**Testing**:
+- Arrange - set up world, instantiate objects, send inputs etc.
+- Act - perform action using arranged world
+- Assert - ensure that result was as expected
+
