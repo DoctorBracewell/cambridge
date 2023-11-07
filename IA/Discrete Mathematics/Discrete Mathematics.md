@@ -38,8 +38,11 @@
 **If** a collection of *assumptions* holds **then** so does some *conclusion*.
 or
 a collection of *assumptions* **implies** some *conclusion*.
+or
+![[Pasted image 20231106101855.png]]
 
 To prove an implication of the form `if P then Q`, assume that `P` is true and prove `Q`.
+![[Pasted image 20231106104539.png]]
 
 **Example 1**:
 > If `n` and `m` are odd integers then so is `m * n`.
@@ -103,6 +106,144 @@ Goal:
 Assuming `P1` gives us `P3`, hence
 
 `P1` implies `P3`.
+### Bi-Implication
+`P` is equivalent to `Q`
+or
+`P` implies `Q` and vice versa,
+`Q` implies `P` and vice versa
+or
+`P` if and only if, `Q`.
+or
+![[Pasted image 20231106101833.png]]
+
+To prove, prove that `P` implies `Q` AND `Q` implies `P`.
+![[Pasted image 20231106104558.png]]
+
+**Example 1**:
+> For every integer `n`,
+> 1. `n` is even if, and only if `n = 0 (mod 2)`.
+
+##### 1 -> 2
+Assumptions:
+1. `n` is even
+Goal:
+- `n - 0` is a multiple of `2`.
+
+By *1*, `n = 2i`, hence
+
+`n - 0` is a multiple of `2`.
+##### 2 -> 1
+Assumptions:
+1. `n = 0 (mod 2)
+Goal:
+- `n` is even
+
+By *1*, `n - 0` is a multiple of `2`
+`n - 0 = 2i` for some integer `i`
+`n = 2i`, hence
+
+`n` is even.
+### Universal Quantifications
+**for all** individuals `x` in the universe of discourse, the property `P(x)` holds.
+or
+no matter what individual `x` in the universe of discourse one considers, the property `P(x)` for it holds.
+or
+![[Pasted image 20231106101910.png]]
+
+To prove, let `x` stand for an arbitrary individual (ensure an unused variable!) and prove `P(x)`.
+![[Pasted image 20231106104621.png]]
+
+To use, plug in any value `y` and conclude that `P(y)` is true and further assume it. This is called **universal instantiation**.
+
+**Example 1**:
+> Fix a positive integer `m`. For integers `a` and `b`, we have that `a = b (mod m)` if and only if for all positive integers `n`, we have that `n * a = n * b (mod n * m)
+##### 1 -> 2
+Assumptions:
+1. `a = b (mod m)
+Goals:
+- for all positive integers `n`, `n * a = n * b (mod n * m)`
+
+Let `x` be an arbitrary positive integer.
+Assumptions:
+2. 
+Goals:
+- `x * a = x * b (mod x * m)
+### Equalities in Proofs
+if `a = b` and `b = c` then `a = c` 
+if `a = b` and `x = y` then `a + x = b + x = b + y`
+
+Side note - axioms for equality:
+- for every individual `x`, `x = x`
+- for any pair of equal individuals, if a property holds for one then it holds for the other.
+### Conjunctions
+`P` and `Q`
+or
+both `P` and also `Q` hold
+or
+![[Pasted image 20231106104434.png]]
+
+To prove, first prove `P` and then prove `Q` or vice versa.
+![[Pasted image 20231106104648.png]]
+
+**Example 1**: 
+> For every integer `n`, we have that `6 | n` iff `2 | n` and `3 | n`
+
+Assumptions:
+1. `n` is an arbitrary integer.
+RTP:
+-  `6 | n` implies (`2 | n` and `3 | n`)
+- (`2 | n` and `3 | n`) implies `6 | n`
+##### 1 -> 2
+Assumptions:
+1. `6 | n`
+RTP:
+- `2 | n`
+- `3 | n`
+##### 1
+RTP:
+- `2 | n`
+
+By *1*, `n = 6k` for an integer `k`.
+`n = 2 (3k)` 
+`n = 2i` for an integer `i`, hence
+
+`2 | n`
+##### 2
+RTP:
+- `3 | n`
+
+By *1*, `n = 6k` for an integer `k`.
+`n = 3 (2k)
+`n = 3i` for an integer `i`, hence
+
+`3 | n`.
+
+hence
+`6 | n` implies `2 | n` and `3 | n`
+##### 2 -> 1
+Assumptions:
+1. `2 | n`
+2. `3 | n`
+RTP:
+- `6 | n`
+
+By *1*, `n = 2i` for an integer `i`.
+By *2*, `n = 3j` for an integer `j`.
+`3n = 6i`
+`2n = 6j`
+`3n - 2n = n = 6i - 6j = 6(i - j)`
+`n = 6(i - j)`, hence
+
+`6 | n`.
+
+hence
+`2 | n` and `3 | n` implies `6 | n`.
+
+hence
+`6 | n` iff `2 | n` and `3 | n`.
+
+
+
 
 
 
