@@ -57,11 +57,95 @@ Ray tracing easily handles reflection, refraction, shadows and blur, but is comp
 
 **Intersections of rays with objects**:
 ray: `P = O + sD`, s >= 0
+
 plane: `P • N + d = 0`
 -> 
 `s = (O•N) + d / N • D 
 polygon or disc: check plane intersection as above, then see if intersection lies within polygon.
 
+sphere: `(P - C) • (P - C) - r^2 = 0`
+->
+![[Pasted image 20231107111218.png]]
+^ Gives quadratic equation, if imaginary roots then no intersection, if multiple roots use closest point of intersection.
+### Shading
+Once you have found the intersection, you can calculate the normal to the object at that intersection point and shoot rays from that point to all the light sources. Calculate diffusion and specular reflection, will give the colour of the object at that point.
 
+![[Pasted image 20231107111709.png]]
 
+In this way raytracing is almost the "opposite" of the way our eyes see, as the rays go from `camera` -> `object` -> `light source`.
 
+You can also check if there is an object in between the intersection and light source and hence calculate shadows.
+![[Pasted image 20231107111749.png]]
+
+**Refraction** - Objects can have transparency, and light rays will be refracted (bent) as it goes through the object. 
+
+**Reflection** - If a surface is totally or partially reflective then new rays can be spawned to find the contribution to the pixel's colour given by the reflection. This is known as "perfect" or "mirror" reflection.
+The new rays can be calculated by "reflecting" the direction of the incoming ray vector, e.g. 
+`R = - V + 2N(V • N)` 
+
+![[Pasted image 20231107112722.png]]
+
+A surface can also absorb some wavelengths of light, which gives "shiny" colours. Specular reflection can have a "self-shadowing" effect from bouncing rays on the imperfect object surface.
+
+**Diffuse Shading**:
+Assuming:
+- Only diffuse shading
+- All light comes only from a light source
+- No object casts a shadow
+- Light sources are considered infinitely apart (vector to the light is the same across the whole surface)
+![[Pasted image 20231107113921.png]]
+where:
+- `L` is a normalised vector in the direction of the light source
+- `N` is the normal to the surface
+- `Il` is the intensity of the light source
+- `Kd` is the proportion of the light which is diffusely reflected by the surface
+- `I` is the intensity of the light reflected by the surface.
+
+**Imperfect Specular Reflection**:
+Phong developed an approximation to specular reflection.
+![[Pasted image 20231107113635.png]]
+Where:
+- `L` is a normalised vector in the direction of the light source
+- `R` is the vector of perfect reflection
+- `N` is the normal to the surface
+- `V` is a normalised vector pointing at the viewer
+- `Il` is the intensity of the light source
+- `ks` is the proportion of the light that is specularly reflected by the surface
+- `n` is Phong's "roughness" coefficient
+- `I` is the intensity of the specularly reflected light.
+
+The overall shading equation can be given by the 
+**ambient illumination** + **diffusion shading** + **specular reflection**
+![[Pasted image 20231107114029.png]]
+^ Calculated for each colour channel.
+### Sampling & Aliasing
+So far assumed that each ray passes through the centre of pixel, but this can lead to:
+- jagged edges to objects
+- small objects being missed completely
+- thin objects being split
+![[Pasted image 20231107114552.png]]
+
+These artefacts are known as **aliasing**. **Anti-aliasing** are methods to reduce the effects of this.
+
+**Single Point** - Shoot a single ray through the centre of a pixel
+**Regular Super-Sampling** - Shoot multiple rays at regular distances through the pixel and average the result.
+**Random Super-Sampling** - Shoot rays at random points through the pixel and average the result.
+**Poisson Disc Super-Sampling** - Shoot `N` rays at random points through the pixel such that all rays are at least `ε` distance from each other (hard to implement).
+**Jittered Super-Sampling** - Divide pixel into `N` sub-pixels and shoot a ray at a random point in each pixel, designed to approximate poisson disc sampling.
+**Adaptive Super-Sampling** - Shoot a few rays, check variance, then decide to continue if dissimilar.
+
+Super-sampling is only one reason to take multiple samples per pixel. Another reason is to apply **distributed ray tracing**. This can be achieved either by:
+1. Each ray per pixel is allocated a random value from the relevant distributions.
+2. Each ray spawns multiple rays when it hits an object. 
+
+Reasons for/examples of distributed ray tracing include:
+- Distribute samples over an area (for anti-aliasing)
+	![[Pasted image 20231107115508.png]]
+	
+- Distribute rays going to a light source over some area (produces soft shadows)
+	![[Pasted image 20231107115524.png]]
+
+- Distribute camera position over some area (allows simulation of camera with actual-sized lens)
+	![[Pasted image 20231107115539.png]]
+
+- Distribute samples over time (produces motion blur or exposure).

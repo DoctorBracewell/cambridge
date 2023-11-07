@@ -236,3 +236,50 @@ RQ(**X, Z, type**, U, V) and U or V will be `null` for relationships.
 **Implementing Entity Hierarchy** -
 ![[Pasted image 20231031114911.png]]
 ![[Pasted image 20231031114926.png]]
+# 5
+---
+**Transaction** - A series of queries and changes that externally appear to be atomic.
+**Internal Transaction** - Some number of values are read, then various values changed based on read values. All values read or written are inside the same database.
+**External Transaction** - Some of the values changed or other side effects are external to DBMS. DBMS cannot help make these atomic, however many do allow aborting transactions.
+
+**Transaction client flow**:
+![[Pasted image 20231107131337.png]]
+- Start and commit calls bracket body
+- Body consists of any number of queries and updates
+- Client can abort at any time, all updates are undone.
+- DBMSs support concurrent transactions.
+
+**Atomicity** - All changes are performed as if they are a single operation (all are performed or none are).
+**Consistency** - Every transaction applied to a consistent database leaves it in a consistent states.
+**Isolation** - Intermediate state of a transaction is invisible to other transaction. Esp. important for concurrent transactions.
+**Durability** - After a transaction successfully completes, changes to data persist and are not undone even int he even of system failure.
+
+**BASE** - NoSQL systems often difficult to implement ACID, so
+- Basically Available
+- Soft state
+- Eventual Consistency
+
+**Lock** - A special software or hardware primitive that provides mutual exclusion. A resource can be locked for exclusive access by at most one application which must unlock it after use. Other applications have to wait.
+In transactions, locks begin and end when the transaction does and can be different *granularities* - could lock entire database or just a single value.
+
+**Redundant Data** - If it can be deleted and then reconstructed from the data remaining in the database. This is an issue because copies can disagree. 
+**Closure** - An iteration is repeated until there are no further changes. 
+
+**Normal Form** - A unique way of representing data in a specific, standard way.
+**Database Normal Forms** - Usually a representation of a database aimed to limit redundant information stored. Automated procedures have been written to put databases into common normal forms such as 3rd (data should be dependent on the primary key).
+
+Low redundancy gives good update throughput, high redundancy gives good query times.
+![[Pasted image 20231107134343.png]]
+However data redundancy can lead to stored data inconsistency if updates are not thorough.
+
+**Fundamental Tradeoff** - Introducing data redundancy can speed up read-oriented transactions at the expense of slowing down write-oriented transactions.
+You should consider when you might want a read-oriented database, such as:
+- Data is read often but written seldom 
+- Read-oriented data afford to be mildly out of sync with the write-oriented. Consider periodically making snapshots.
+
+**FIDO** - Fetch Intensive Data Organisation
+**OLAP** - Online Analytical Processing, write once or journal/ledger updates. Commonly associated with decision support, data warehouse, etc. HISTORICAL data, such that once a record is added is unlikely to be added to again.
+**OLTP** - Online Transaction Processing, a mix of queries and updates to live data.
+![[Pasted image 20231107135213.png]]
+
+Version control system (e.g. Git) stores update history, adding an additional **dimension** to the stored documents. Even for OLTP a limited update history is usually stored for ACID durability.

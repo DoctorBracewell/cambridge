@@ -85,3 +85,12 @@ There are an infinite number of functions that differentiate to the same thing, 
 Reversing differentiation:
 ![[Pasted image 20231104175410.png]]
 ![[Pasted image 20231104175357.png]]
+
+![[Pasted image 20231107091424.png]]
+
+**Reverse Chain Rule**:
+![[Pasted image 20231107091452.png]]
+This also works for *any* function of the where the product is `df/dx * g ( f (x) )` where `g` is an integrable function.
+
+**Double Angle Formula**:
+![[Pasted image 20231107093435.png]]
