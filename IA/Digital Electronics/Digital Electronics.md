@@ -485,7 +485,7 @@ A looser example can be found using an implication table:
 - Perform a pairwise comparison between all pairs of states
 - If outputs are different, there is definitely no implied equivalence (place X in cell)
 - If outputs are the same, then "match" the "next state" values in the box, as these may be equivalent (and hence the original pair is equivalent)
-- Self implied state are removed (e.g. A-D in the A-D cell).
+- Self implied state are removed (e.g. A-D in the A-D cell, or A-A).
 ![[Pasted image 20231027111932.png]]
 - Then, for each implied equivalence in each cell, check the corresponding cell.
 	- If any of those cells has an X they are definitely not equivalent (cross out current cell)

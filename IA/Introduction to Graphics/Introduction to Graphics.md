@@ -134,7 +134,7 @@ These artefacts are known as **aliasing**. **Anti-aliasing** are methods to redu
 **Jittered Super-Sampling** - Divide pixel into `N` sub-pixels and shoot a ray at a random point in each pixel, designed to approximate poisson disc sampling.
 **Adaptive Super-Sampling** - Shoot a few rays, check variance, then decide to continue if dissimilar.
 
-Super-sampling is only one reason to take multiple samples per pixel. Another reason is to apply **distributed ray tracing**. This can be achieved either by:
+Super-sampling is one reason to take multiple samples per pixel. Another reason is to apply **distributed ray tracing**. This can be achieved either by:
 1. Each ray per pixel is allocated a random value from the relevant distributions.
 2. Each ray spawns multiple rays when it hits an object. 
 
@@ -149,3 +149,53 @@ Reasons for/examples of distributed ray tracing include:
 	![[Pasted image 20231107115539.png]]
 
 - Distribute samples over time (produces motion blur or exposure).
+## Rasterisation
+- Unfortunately ray tracing is very computationally expensive, tends to only be used for super high visual quality.
+- Most real-time applications use rasterisation:
+	- model surfaces as polyhedra
+	- use composition to build scenes
+	- apply perspective transformations onto 2d camera screen
+	- work out which surface was closest
+	- fill pixels with colour of nearest polygon
+
+**Thee-Dimensional Objects** - Polyhedral surfaces are made up from meshes of multiple connected polygons. Polygon meshes can be open or closed, and curve surfaces can be *approximated*.
+![[Pasted image 20231109111423.png]]
+
+**Triangles** - Best polygon to use:
+![[Pasted image 20231109111700.png]]
+### 2D Transformations
+**2D Transformations** - Transform predefined points to arbitrary sizes, locations and orientations.
+![[Pasted image 20231109111836.png]]
+
+Transformations can be represented using matrix multiplications:
+![[Pasted image 20231109112319.png]]
+To find out a particular matrix for a transformation, consider how the transformations move the points `(0, 1)` and `(1, 0)`.
+
+**Homogeneous Coordinates** - Translations cannot be represented using simple 2D matrix multiplication, so we switch to *homogeneous* 2D coordinates.
+![[Pasted image 20231109112643.png]]
+
+An infinite number of homogeneous coordinates map to every 2D point, e.g
+`(1, 2, 1) = (2, 4, 2)`. When `w = 0` this is a point at infinity. Typically assume the inverse transform to be `w = 1`.
+![[Pasted image 20231109112905.png]]
+
+and to translate:
+![[Pasted image 20231109112940.png]]
+
+Transformations can be concatenated by applying the first matrix to the point and the rest to the result of the last transformation (not commutative).
+
+To transform around an arbitrary point:
+- Translate by `(-x, -y)` to the origin
+- Apply transformation around the origin
+- Translate back to `(x, y)`.
+
+Homogeneous coordinates can also be used for 3D transformations.
+Transformations can be used to display multiple instances of an object defined at one location.
+### 3D-2D Projection
+To make a picture, the 3D world is *projected* onto a 2D plane.
+
+**Parallel Projection** - Removing an axis, useful in CAD/architecture etc. to represent top-down, side, birds-eye views etc. Unrealistic.
+**Perspective** - Things get smaller as they are further away, similar to how eyes work. Realistic.
+![[Pasted image 20231109115358.png]]
+
+This projection can be represented as a matrix operation
+![[Pasted image 20231109115609.png]]

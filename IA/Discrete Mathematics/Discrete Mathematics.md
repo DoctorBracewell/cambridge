@@ -241,12 +241,130 @@ hence
 
 hence
 `6 | n` iff `2 | n` and `3 | n`.
+### Existential Quantifications.
+**there exists** an individual `x` in the universe of discourse for which the property `P(x)` holds
+or
+**for some** individual `x`, the property `P(x)` holds.
+or
+![[Pasted image 20231108100758.png]]
 
+**Example Theorem**:
+Let `f` be a real-valued continuous function on an interval `[a, b]`. For every `y` in between `f(a)` and `f(b)`, there exists a value `v` between `a` and `b` such that `f(v) = y`.
 
+To prove, find a witness `w`, (value of `x` you think it will be true for), and show that `P(w)` is true for that value.
+![[Pasted image 20231108101914.png]]
 
+To use, introduce a new variable `x0` into the proof to stand for some individual for which the property `P(x)` holds. You can then assume `P(x0)` true.
 
+**Example 1**:
+> For every positive integer `k`, there exist natural numbers `i` and `j` such that `4k = i^2 - j^2`.
 
+Let `k` be an arbitrary positive integer.
+(scratch work to find `i` and `j` that work)
+Let `i0 = k + 1` (witness value)
+Let `j0 = k - 1` (witness value)
 
+`i0^2 - j0^2 = (k^2 + 2k + 1) - (k^2 -2k + 1)
+`= 2k - -2k`
+`= 4k`
+
+**Example 2**:
+> For all integers `l`, `m`, `n`, if `l | m` and `m | n` then `l | n`.
+
+Let `l`, `m`, `n` be arbitrary integers.
+`m = i * l`
+`n = j * m`
+
+**Example 2**:
+> For every positive integer `n`, there exists a natural number `l` such that `2^l < n < 2^(l+1)`.
+
+Let `n` be an arbitrary positive integer.
+`m
+### Unique Existence
+the **unique existence** of an `x` for which the property `P(x)` holds.
+or
+![[Pasted image 20231108102538.png]]
+
+To prove, prove existence AND that if two numbers are true then they are the same.![[Pasted image 20231108102650.png]]
+### Disjunctions
+**P** or **Q**
+or
+![[Pasted image 20231108104004.png]]
+
+To prove, either prove O or prove Q or prove that either P or Q depending on the case.
+![[Pasted image 20231108104113.png]]
+
+To use, assume `P1` true and prove goal `Q`, then assume `P2` true and prove goal `Q`.
+
+**Example 1**: 
+> For all positive integers `p` and natural numbers `n`, if `m = 0` or `m = p` then `(p, m) congr 1 (mod p)`.
+
+Let `p` be an arbitrary positive integer and `m` an arbitrary natural number.
+Assume `m = 0` or `m = p`.
+RTP: `p!/(m!(p - m)!) = 1 (mod p)
+
+\1. `m = 0`
+`(p, 0) = p!/(0!(p - 0)!) = p!/p! = 1 -> 1 congr 1 (mod p)
+
+\2. `m = p`
+`(p, 0) = p!(p!(p! - p!) = p!/p! = 1 -> 1 congr 1 (mod p)`
+### Binomial Formula
+![[Pasted image 20231110101827.png]]
+
+**Example 1**:
+> For all natural numbers `m`, `n` and primes `p`, `(m + n)^p congr m^p + n^p (mod p)`
+
+Let `m` and `n` be arbitrary natural numbers and `p` be an arbitrary prime.
+
+![[Pasted image 20231110102614.png]]
+
+![[Pasted image 20231110103807.png]]
+^ This tells you that for every number that is not congruent to `0 (mod p)` has a **reciprocal**.
+![[Pasted image 20231110104209.png]]
+### Negation
+**not** `P`
+or
+`P` is not the case
+or
+![[Pasted image 20231110104350.png]]
+
+To prove, first try writing the negation in an equivalent form.
+![[Pasted image 20231110104406.png]]
+
+**Example 1 (contrapositive)**:
+> For all statements `P` and `Q`, if `P` implies `Q` then `not Q` implies `not P`.
+
+Let `P` and `Q` be statements.
+
+2. Assume that `P` implies `Q`.
+3. Assume `not Q`, `Q implies false`
+RTP: `not P`, `P implies false`
+
+1. Assume `P`
+RTP: `false`
+
+By *1* and *2*, we have `Q`. 
+By *3*, we have `false`.
+### Proof by Contradiction
+![[Pasted image 20231110105032.png]]
+is classically accepted. 
+Hence to prove `P`, one can prove `not P implies false`, or that assuming `not P` leads to contradiction.
+
+**Example 2**:
+> For all statements `P` and `Q`, if `not Q` implies `not P` then `P` implies `Q`.
+
+Assume `not Q` implies `not P`
+Assume `P`
+RTP: `Q`.
+
+Proceed by contradiction:
+Assume `not Q` (negation of goal)
+RTP: `false`.
+
+`not Q` gives `not P`
+which contradicts `P`
+
+hence `Q`.
 
 
 
