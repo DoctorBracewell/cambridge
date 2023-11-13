@@ -136,4 +136,16 @@ Base class, superclass, parent class
 ![[Pasted image 20231113111829.png]]
 
 Inheritance can help with *type casting* - an `Integer` inherits from `Number`, and so any integers can be cast to a `Number`.
+
 A widening cast is making something more general (moving up the inheritance tree) (`Student` -> `Person`).
+A narrowing cast makes something more specific (moving down the inheritance tree) but extra care is needed because there might not necessarily be enough information to do this. 
+
+**Overriding** - Replacing an already-existing method from a superclass with the same signature. The `@Override` notation can be used for clarity. 
+
+**Abstract Classes** - A technique to force any subclasses to implement a method without providing a default implementation in the base class. You cannot instantiate an abstract class, it only acts as an interface for any classes that extend it.
+All state and non-abstract methods are still inherited as normal by child classes.
+
+**Interface** - A collection of exclusively abstract functions that force classes to inherit from them to provide concrete implementations.
+They have no state whatsoever, 
+![[Pasted image 20231113115100.png]]
+

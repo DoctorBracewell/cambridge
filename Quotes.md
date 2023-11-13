@@ -25,3 +25,7 @@
 > **Theorem** - A very important true statement
 > **Proposition** - A less important but nonetheless still interesting true statement.
 > *- Marcelo Fiore, Discrete Mathematics, Computer Science Tripos Part IA*
+
+> We might want to require that every Person can dance. But the way a Lecturer dances is not likely to be the same as the way a Student dances...
+> *- Rob Harle, Object-Oriented Programming, Computer Science Tripos Part IA*
+
