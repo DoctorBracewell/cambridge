@@ -356,6 +356,7 @@ Can use a queue for breadth first search by adding node, then enqueue both subtr
 
 **Iterative Deepening** - Use DFS to get benefits of BFS. Recompute nodes at depth `d` instead of storing them. Essentially this preforms repeated DFS, discarding previous results. Improves space complexity, time complexity stays same.
 ![[Pasted image 20231030173511.png]]
+Start with a factor `k`, go down to `k` level. If compute time left, 
 
 **Stack** - An abstract data structure behind depth-first search, can be implemented in OCaml as just a list. Important to look at operations of each data structure and consider how to implement with minimal complexity.
 ![[Pasted image 20231030173823.png]]

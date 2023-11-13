@@ -118,4 +118,22 @@ There are more flexible than references but more dangerous
 ![[Pasted image 20231110114853.png]]
 ### Pass-by-value
 Passing a value into a function results in a copy of that value. In Java all function calls are pass-by-value, but passing a reference in as a function results in that reference being copied.
+### Inheritance
+**Inheritance** - The notion of capturing hierarchy in classes. You can see certain classes as specialisations of others.
 
+When a class inherits from another class:
+- It inherits its type.
+- Incoporates all the attributes and behaviour from that class.
+- Can directly access public and protected members of that class but not private
+- Can redefine some inherited behaviour or add new attributes and behaviour.
+
+All classes inherit from `Object`.
+
+Child class, subclass, derived class
+inherits from
+Base class, superclass, parent class 
+
+![[Pasted image 20231113111829.png]]
+
+Inheritance can help with *type casting* - an `Integer` inherits from `Number`, and so any integers can be cast to a `Number`.
+A widening cast is making something more general (moving up the inheritance tree) (`Student` -> `Person`).
