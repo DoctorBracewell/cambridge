@@ -283,3 +283,25 @@ You should consider when you might want a read-oriented database, such as:
 ![[Pasted image 20231107135213.png]]
 
 Version control system (e.g. Git) stores update history, adding an additional **dimension** to the stored documents. Even for OLTP a limited update history is usually stored for ACID durability.
+# 6
+---
+**Semi-Structured Data** - Not all data fits neatly into a table form. For example, a textbook has chapters with names that have numbers and sections, diagrams with their own numbering, cross references between sections, etc. etc.
+
+Two approaches to represent this:
+- Store the document in its native form, store the indexable features in relational tables
+- Store "shredded" and largely in native form (JSON, XML), develop database tools to navigate such semi-structured data. Generally a different querying technique than SQL.
+
+Real world data is often analogue and noisy. 
+
+**BA** - Basically available, availability is promoted over consistency. Any change in data made at one point is publicised to all other nodes.
+**Soft State** - Stored values may change without any application intervention owing to eventual consistency updates.
+**Eventual Consistency** - All readers throughout the system will eventually see the same state as each other.
+
+**Blob** - A sequence of bytes
+- Can be used as a value in a key/value store
+- Any structure inside the blob is opaque to the key/value store
+- Many implementations are distributed, spreading data over all participating machines known as shards
+- Opaqueness implies DBMS knows nothing about what is stored
+- Distribution provides redundancy and load balancing
+- Implementations can range between ACID and BASE semantics.
+
