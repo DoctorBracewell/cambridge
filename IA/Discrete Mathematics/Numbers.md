@@ -31,3 +31,39 @@ If you extend the natural numbers to admit all additive inverses you get the int
 If you extend the natural numbers to admit all multiplicative inverses for non-zero numbers you get the rational numbers `Q`.
 
 A **ring** is a semiring in which the commutative monoid `(0, ⊕)` is a group. A ring is commutative if so is the monoid `(1, ⊗)`.
+
+![[Pasted image 20231115100701.png]]
+
+`q = quo(m, n)`
+`r = rem(m, n)`
+
+This can be proven by taking away `n` from `m` as many times as possible until you end up with `r < n`. This gives you `q` and `r`.
+![[Pasted image 20231115103119.png]]
+It can be shown that this program terminates because at each call of `divter` the second argument decreases, and it is impossible to have an ever-decreasing sequence of natural numbers.
+
+**Partial Correctness** - Showing that an algorithm performs correctly.
+**Total Correctness** - Showing partial correctness as well as that the program terminates.
+
+**Modular Arithmetic**:
+![[Pasted image 20231115104924.png]]
+![[Pasted image 20231115104950.png]]
+
+The tables for `Z4` are:
+![[Pasted image 20231115105107.png]]
+
+The modular-arithmetic structure
+![[Pasted image 20231115105132.png]]
+is a **commutative ring**. 
+
+**Example 1**:
+>![[Pasted image 20231115105616.png]]
+
+*1*.
+![[Pasted image 20231115105632.png]]
+
+*2.*
+![[Pasted image 20231115105651.png]]
+
+**Integer Linear Combinations** - An integer `r` is said to be a linear combination of a pair of integers `m` and `n` whenever there are integers `s` and `t` such that `s * m + t * n = r`.
+![[Pasted image 20231115105955.png]]
+

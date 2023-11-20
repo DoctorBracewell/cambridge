@@ -148,4 +148,99 @@ All state and non-abstract methods are still inherited as normal by child classe
 **Interface** - A collection of exclusively abstract functions that force classes to inherit from them to provide concrete implementations.
 They have no state whatsoever, 
 ![[Pasted image 20231113115100.png]]
+### Polymorphism
+**Parametric Polymorphism** - i.e. generics
+**Ad-hoc Polymorphism** - i.e. overloading
+**Subtyping Polymorphism** - many types of objects providing the same method that can be invoked without knowing which object it is.
 
+Take
+![[Pasted image 20231115111108.png]]
+**Static Polymorphism** - Decided at compile-time, since we don't know the true type of `p` just run the parent method.
+**Dynamic Polymorphism** - Run the method in the child, must be done at run-time since that's when the child's type is know. 
+### Multiple Inheritance
+**Multiple Inheritance** - One class inheriting from multiple sources. This introduces some problems:
+- Name clashes between both sources, which one should the child inherit.
+- Inherit state from both classes, often with same name. Can lead to nasty and confusing syntax.
+- Diamond problem, where one class has multiple inheritance which have one parent class, leading to even more name clashes.
+
+In Java, classes can have at most one direct parent. But multiple *interfaces* can be directly inherited because they don't have any state or methods. Often this helps eliminate name clashes.
+
+**API Evolution** - Since the JDK was so widely used, it was difficult to add new features to the API without breaking things. For example, making a commonly-used class implement a new interface would break existing uses because there would now be undefined methods.
+They eventually solved this by adding default methods to interfaces.
+### Good OOP
+Make your classes **open to extension** but **closed to modification**.
+Someone using your class shouldn't have to modify it, it should be easy for them to extend (by making new classes, inheriting it, etc. etc.)
+
+**Liskov Substitution Principle** - Subtypes must be behaviourally substitutable for their base types without negative side effects.
+For example, creating a sub class that throws an exception for some abstract method on the parent violates this principle because its a negative side effect.
+### Object Creation
+![[Pasted image 20231117111259.png]]
+Essentially this means a lot more work is done on the first instantiation of a class than any subsequent ones.
+### Cleaning Up
+A typical program makes a lot of objects, not all of which need to be kept in memory all the time.
+
+**Approach 1**:
+- Allow the programmer to specify when objects should be deleted from memory, lots of control but can lead to memory leaks if a mistake is made.
+
+**Approach 2**:
+- Delete the objects automatically (garbage collection)
+- But can get it wrong, an object might still be needed.
+
+Java implements a garbage collector by *counting references* to an object. If there are none then it can never be accessed again so can be safely deleted.
+![[Pasted image 20231117111756.png]]
+
+**Mark and Sweep**:
+- Mark: Starting at each stack reference, follow the reference of everything reachable. Mark everything you find
+- Sweep: Traverse all objects on the stack, delete any that haven't been marked.
+
+Options for deletion:
+- **Delete Immediately** - simplest approach, but can take a while. unpredictable pauses
+- **Delete next time** - Queue for deletion if too much time already spent deleting this round
+- **Don't Delete** - In some cases decide not to delete (either forever or until we hit a memory critical point).
+
+**Heap Division**:
+- Eden, where brand-new objects are just created
+- Survivors if they survive a few GCs
+- Tenured if they survive a few more GCs.
+The GC is run frequently on Eden, less so on Survivors and much less so on Tenured.
+
+**Choices**:
+- Serial GC - program stops executing entirely while GC runs.
+- Parallel GC - program stops executing but GC is run parallel for faster
+- G1 GC - garbage collects concurrently. divides memory into chunks and uses parallel marking
+- Epsilon GC - Don't do anything at all (no-op GC). Useful if you know your program will take constant time.
+### Destructors
+Most OO languages have a notion of a destructor too, gets run when object is destroyed.
+Allows you to release any resources (open files, etc.) or memory created especially for that object.
+
+In Java, objects has a `finalize` method that runs when GC actually deletes the object but this is problematic/difficult to predict and generally shouldn't be used.
+### Copying Objects
+Sometimes you do want to actually copy an object, not just create two references to the same object.
+
+**Shallow Copy** - Just copy the core object, including any reference to other objects
+**Deep Copy** - Copy all objects recursively - if the original object has references to other objects, create copies of those objects as well.
+
+A **copy constructor** can be used that takes something of the same type and manually copies the data.
+
+In Java, the `Object` class has a `clone` method. By default this does a shallow copy, but there is a `Cloneable` interface, if you call `clone` on anything that doesn't implement this you get an error.
+
+The `Cloneable` interface is empty and is a **marker interface** - it's only there to ensure that you have to mark any structure as cloneable.
+### Collections
+**Collection** - Any number of items stored together.
+**List** - An ordered collection that may contain duplicates
+Java STD offers a lot of different types of lists:
+- ArrayList
+- LinkedList
+- Vector
+- Queues, especially priority queues
+
+**TreeMap** - A map (key-value pairs) with keys in order, keys used to access values
+**HashMap** - A map with keys not in order, efficient access using hashing.
+
+**Iteration** - Looping over all items in a collection.
+
+**Equals** - All objects have an `equals` method that test for referential equality, often this can overridden to compare for value equality per-object.
+Hashmaps also have a `hashCode` function
+
+**Comparable** - An interface that allows you to take two items and return less than, equal, greater than. Used for natural, default ordering.
+**Comparator** - A way to implement additional ordering for some specific case.

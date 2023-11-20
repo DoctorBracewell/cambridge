@@ -94,3 +94,17 @@ This also works for *any* function of the where the product is `df/dx * g ( f (x
 
 **Double Angle Formula**:
 ![[Pasted image 20231107093435.png]]
+
+**Newton-Raphson Method**:
+A method to solve (find roots of) nonlinear algebraic equations.
+
+![[Pasted image 20231114155715.png]]
+- Start with an initial guess `x0`.
+- `x1 = x0 + h`
+- `f(x1) = f(x0 + h)
+- Taylor expand around `x0` and truncate at first order so
+![[Pasted image 20231114160939.png]]
+which lets you solve for `h` and hence find `x1`
+![[Pasted image 20231114162137.png]]
+
+Repeating this formula will find `x2` and eventually a better and better approximation.

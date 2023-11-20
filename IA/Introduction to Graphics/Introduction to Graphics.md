@@ -199,3 +199,197 @@ To make a picture, the 3D world is *projected* onto a 2D plane.
 
 This projection can be represented as a matrix operation
 ![[Pasted image 20231109115609.png]]
+
+Projection Assumptions:
+- Screen centre at `(0, 0, d)
+- Screen parallel to xy plane
+- `z`-axis into screen
+- `y`-axis up, `x`-axis right
+- camera at origin
+
+However camera can be moved to any pointer with new equations, or the *whole environment* can be shifted to ensure the camera remains at the origin.
+### Modelling Pipeline
+![[Pasted image 20231116001308.png]]^ This is a *useful* and *common* method of 3D dimensions into computer graphics, but not hard and fast model on how things should be done.
+
+**Modelling Transform** - Turning an object into the correct coordinates relative to the environment.
+E.G take a model (teapot) with its origin at centre, rotate and place it correctly in the world. Differenet for each object.
+![[Pasted image 20231116001758.png]]
+
+**View Transform** - Position all objects relative to the camera. This could be done by moving the camera to the origin and using more complex mathematics, but more commonly is done by moving and rotating the entire environment such that the camera is positioned at the origin and oriented the correct way.
+![[Pasted image 20231116002015.png]]
+
+**Projection Transform** - Turn 3D points into 2D points. Relatively simple after the modelling and view transformations because camera is at origin and oriented simply.
+![[Pasted image 20231116002344.png]]
+
+All together:
+![[Pasted image 20231116002729.png]]
+
+**Finding view transformations**:
+![[Pasted image 20231116002935.png]]
+Suppose you have two vectors describing the camera:
+- `c->l`, which shows where the camera is pointing
+- `u`, which shows which direction is "up" for the camera.
+It is possible to find the orthogonal basis vectors (`r`, `u`, `v`) that ensure point `c` (the camera) becomes the "origin" of the new space.
+
+For a left-handed coordinate system:
+- ![[Pasted image 20231116003330.png]]
+- ![[Pasted image 20231116003343.png]]
+- ![[Pasted image 20231116003459.png]]
+
+**Using view transformations**:
+First you want to *translate* so that the camera becomes at the origin:
+![[Pasted image 20231116003607.png]]
+
+then apply a *change of basis* transformation
+![[Pasted image 20231116003638.png]]
+
+So that `V` becomes:
+![[Pasted image 20231116003935.png]]
+
+**Transforming Normal Vectors**:
+![[Pasted image 20231116004628.png]]
+![[Pasted image 20231116004450.png]]
+`G` is derivable as below:
+	![[Pasted image 20231116005039.png]]
+Or can just be known as: `( M^-1 ) transposed
+
+**Scene Graph**
+A scene can be built from a scene graph, where each node inherits all of its parents transformations and its own transformations.
+![[Pasted image 20231116010323.png]]
+![[Pasted image 20231116010408.png]]
+### Rasterization
+![[Pasted image 20231116010657.png]]
+
+Drawing polygons with uniform shading gives poor result. If you calculate the colour at each *vertex* of the triangle and interpolate throughout the triangle you get much smoother colours.
+The efficiency of rasterization comes from the ability to interpolate vertex attributes, including colour, normals, texture, coordinates, etc.
+
+**Homogenous Barycentric Coordinates** can be used to achieve this.
+![[Pasted image 20231116011319.png]]
+Each vertex one of `α`, `β`, `γ` is `1`, and each vertex has some attribute (here it is an RGB value).
+At a vertex inside the triangle, the attribute is built up proportionally from each coordinate value:
+![[Pasted image 20231116011616.png]]
+
+You can visualise barycentric coordinates with the diagram below, and find `(x, y)` in barycentric coordinates given the coordinates of the vertices of the triangle.
+For example, at any point along the line connecting `a` and `b`, `γ = 0` because only at `c` is it 1.
+![[Pasted image 20231116011757.png]]
+![[Pasted image 20231116012719.png]]
+
+Pseudocode for triangle rasterization interpolation:
+![[Pasted image 20231116012908.png]]
+If all barycentric coordinates are greater than `0` then point inside triangle:
+![[Pasted image 20231116013009.png]]
+
+A variety of optimisations:
+- Starting and ending only from pixels on the line in the triangle
+- Barycentric coordinates change by the same amount when moving one pixel right, precompute increments.
+
+You can also use this to interpolate *normal vectors* between each vertex in the triangle, used for Phong's illumination model. To calculate colour for each pixel, add the ambient illumination to the diffuse term and the specular term, but the normal can be interpolated for either of the diffuse or specular terms that require it.
+This is only really relevant when the normal vectors are pointing different directions, i.e. on a surface that is not flat. These normals must be calculated from the *actual model* of the surface not on the triangle vertices, as obviously all vertices would have the same normal vector.
+
+**Occlusions** - When one object hides part of another. This can be a difficult problem to solve because some triangles may overlap only part of another.
+**Z-Buffer** - An algorithm to implement occlusions.
+Start with a colour buffer set to the background colour and a depth buffer set to the farthest point, then:
+![[Pasted image 20231116111408.png]]
+
+Z-Buffer must store depth with sufficient precision, usually 24 or 32 bit integers or floats.
+![[Pasted image 20231116111616.png]]
+**Z-Fighting** - When two polygons are essentially on top of each other and can be drawn differently per frame.
+### Graphics Hardware and OpenGL
+**GPU** - Graphics Processing Unit, optimised for floating point operations on large arrays of data. 
+Uses include:
+- Clipping, rasterisation, surface removal
+- Procedural shading, texturing, animation, simulation
+- Ray tracing
+- Video rendering and decoding
+- Physics engines
+- Modern ones tend to be fully programmable
+- Optimised for massively parallel operations
+
+3D rendering can be efficiently *parallelised*. Modern GPUs contain hundreds or thousands of SIMD processors, and beyond 1000 GB/s memory access.
+
+**GPU APIs**:
+OpenGL
+- Multi-platform
+- Open standard API
+- Focus on general 3D applications
+- no ray tracing
+DirectX:
+- Windows/Xbox only
+- Proprietary API
+- Focus on games
+Vulkan:
+- Cross-platform
+- Open standard
+- Low-overhead API for high performance
+- Compared to OpenGl/DirectX it reduces CPU load, finer GPU control, better multi-core support
+- But very complicated
+Metal:
+- Low level, low-overhead 3D GFX and compute shaders API
+- Support for apple chips, intel, AMD
+- Mostly used on iOS
+
+OpenGL and DirectX are not designed for general purpose computing, so
+CUDA:
+- Proprietary language for parallel computing on the GPU
+- C-like programming language
+- Special API for parallel instructions
+- Requires NVIDIA Gpu
+OpenCL:
+- Same organisation as OpenGL
+- Cross platform, most GPUs support it.
+
+OpenGL ES for lower performance systems (mobile phones)
+WebGL for websites, essentially a wrapper around OpenGL ES
+
+**Java Libraries**:
+- LWJGL 3 for OpenGL access alongside OpenCL
+- JOML for linear algebra operations, designed for OpenGL use
+### OpenGL Rendering Pipeline
+**CPU-Side**:
+- `gl*` functions that:
+	- create OpenGL objects
+	- copy data CPU <-> GPU
+	- modify OpenGL state
+	- enqueue operations
+	- synchronise CPU & GPU
+- C99 library
+- wrappers in most programming language
+
+**GPU-Side**:
+- Fragment shaders
+- Vertex shaders
+- other shaders
+- written in GLSL
+	- Similar to C
+	- can be written in other language and compiled to SPIR-V
+
+![[Pasted image 20231116114120.png]]
+
+**Vertex Shader** - Process vertices, normals, UV texture coordinates
+
+**Tessellation Control Shader** - You can choose the subdivision level of tessellation
+![[Pasted image 20231116114154.png]]
+
+**Geometry Shader** - Operate on tessellated geometry, you can create new primitives.
+![[Pasted image 20231116114300.png]]
+
+**Fragment Shader** - Computes colour per each fragment. Can lookup colour in the texture, modify pixel's depth values, tone mapping, etc. etc. Most computation happens here.
+![[Pasted image 20231116114442.png]]
+
+**Preparing vertex data**:
+For a cube
+	![[Pasted image 20231116114656.png]]
+
+
+Prepare two arrays:
+- All vertices with their attributes (colour, normal, etc.)
+- Groups of 3 vertices that represent all triangles (usually specified in counter-clockwise order, to help OpenGL determine which triangles are facing the camera)
+![[Pasted image 20231116114747.png]]
+### GLSL Fundamentals
+**Shader** - A small program executed on the GPU. Executed for each vertex, each pixel, etc.
+**OpenGL Shading Language (GLSL)** - A language used to write shaders, similar to C/Java
+
+**Example**:
+![[Pasted image 20231116115522.png]]
+
+

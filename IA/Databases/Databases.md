@@ -305,3 +305,48 @@ Real world data is often analogue and noisy.
 - Distribution provides redundancy and load balancing
 - Implementations can range between ACID and BASE semantics.
 
+**Serialising** - Converting a data structure into a series of bytes for storage or network transfer. Data can be unserialised back to to a particular format. JSON and XML are frequently used for transferring data between database, but NoSQL may use them for primary storage.
+
+![[Pasted image 20231114132313.png]]
+
+**Structure Spectrum**:
+1. All data in one large element (no structure)
+2. Some elements contain a lot of text, others contain an atomic value (semi-structured)
+3. Every atomic value in its own element (very structured, unrealistic for certain data e.g. books)
+
+**Schema Rigorousness Spectrum**:
+1. A schema, named with a URL exists. Schema dictates precisely the element names and which elements may be allowed inside which others.
+2. The schema is relaxed somewhat, e.g. order of elements inside a parent is unimportant
+3. Other attributes or elements beyond those in the schema are also allowed
+4. There's no schema at all.
+
+**Document-Oriented Database** - Stores data in the form of semi-structured objects. In any application there is likely to be some application-level structure within the blobs, but this *cannot* be used by the DBMS.
+A denormal DBMS lets you rapidly pull as much data as needed using only one key. 
+
+All sorts of queries are possible with such semi-structured data:
+- Unstructured text, e.g: How many words in a text? What is the FOG factor? Does it mention xyz?
+- Query tags, e.g: What are the eye-colour attributes to each person elements under the second chapter element?
+- Application-specific compositions of these, e.g: querying HTML tree
+
+To support rapid retrieval of all likely related data using different keys, you can precompute and store several of them. The replication factor multiplies with any replication from the data being denormal.
+
+**NoSQL (Not Only SQL) Movement** - Database management systems addressing some points of:
+- Non-relational
+- Distributed
+- Open-Source
+- Horizontally scalable (expanded by adding further machines, not upgrading current ones)
+
+It can also be seen as a push towards schema-free, typeless programming or data. Whilst this can have some application to data analysis and more abstract queries, it can also be seen as generally less useful because of the lack of documentation and structure within the data.
+
+"No Schema" really means "not stored as part of the database". For most activites there will inevitably still be a schema, even if it's stored on some scrap of paper or in someone's head. New joiners to a software project somehow, and if the DBMS can't help this may be a problem.
+
+**TinyDB IMDB Snapshot**:
+- In-core using JSON
+- No support for transactions (theoretically easy to implement sharding)
+- Two primary denormal tables
+- Unstructured text for trivia and quotes
+- Data indexed on numerous keys
+- Some fields are foreign keys.
+
+**Branded Types** - Almost the opposite of semi-structured data. For example, restricting floats to even more distinct types - velocities, distances, heights, etc. Would help prevent many silly operations such as adding time to distance. 
+

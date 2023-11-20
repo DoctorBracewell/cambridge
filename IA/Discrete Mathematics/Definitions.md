@@ -6,3 +6,4 @@
 
 **Definition 4** - Fix a positive integer `m`. For integers `a` and `b`, we say that `a` is congruent to `b` modulo `m`, and write `a = b (mod m)` whenever `m | (a - b)` -> `(a - b) = k * m`
 
+![[Pasted image 20231120122601.png]]
