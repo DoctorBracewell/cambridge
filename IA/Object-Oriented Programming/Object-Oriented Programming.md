@@ -142,7 +142,7 @@ A narrowing cast makes something more specific (moving down the inheritance tree
 
 **Overriding** - Replacing an already-existing method from a superclass with the same signature. The `@Override` notation can be used for clarity. 
 
-**Abstract Classes** - A technique to force any subclasses to implement a method without providing a default implementation in the base class. You cannot instantiate an abstract class, it only acts as an interface for any classes that extend it.
+**Abstract Classes** - A technique to force any subclasses to implement a method while a default implementation in the base class. You cannot instantiate an abstract class, it only acts as an interface for any classes that extend it.
 All state and non-abstract methods are still inherited as normal by child classes.
 
 **Interface** - A collection of exclusively abstract functions that force classes to inherit from them to provide concrete implementations.
@@ -244,3 +244,42 @@ Hashmaps also have a `hashCode` function
 
 **Comparable** - An interface that allows you to take two items and return less than, equal, greater than. Used for natural, default ordering.
 **Comparator** - A way to implement additional ordering for some specific case.
+### Generics
+Type systems assign types to key terms in our source code. Assigning types to all of your "things" can be modelled mathematically as a logical system, allowing the compiler to help you find more errors.
+
+**Generics** are part of a type system and aim to allow a type or method to operate on objects of various type whilst providing compile-time errors, i.e parameteric polymorphism.
+![[Pasted image 20231122111302.png]]
+
+**Implementing Generics** -
+Templates, where all instance of the generic (e.g. `T`) is just replace with all possible types used in the code. Ends up with bloat as many classes end up being made. 
+
+Type erasure, where all the type checks are performed, then delete all of the type information in the compiler output. It can replace everything with just an `Object`. Dynamic checks aren't possible.
+
+Pros:
+- Bytecode unchanged, backwards compatible
+- Can still have compile time checking
+- Avoids bloat of templates
+Cons:
+- No runtime/dynamic checking
+- Can't directly instantiate generic types
+- Limits method overloading
+
+For example, this is why you can't have a primitive type as a generic - because e.g. `int` is not an `Object`.
+
+**Generics & SubTyping** - 
+![[Pasted image 20231122113915.png]]
+
+When the hierarchy is in the generic parameter you run into issues.
+**Covariance** - If B is a subtype of A then I should be able to use B everywhere I expect an A.
+
+However for arrays...
+![[Pasted image 20231122114336.png]]
+This is happens because arrays in java are **reifiable types**, they know their true type at runtime.
+This is the same reason why you can't have an array of types `T`, even though `T` is never instantiated.
+
+For lists, you get a compile type error because of type erasure.
+![[Pasted image 20231122114442.png]]
+### Wildcards
+`?` can be used to represent any type. Useful, for example, since type erasure limits method signaures.
+
+`? extends T` - Allows you to read certain types, but can't write.

@@ -67,3 +67,16 @@ is a **commutative ring**.
 **Integer Linear Combinations** - An integer `r` is said to be a linear combination of a pair of integers `m` and `n` whenever there are integers `s` and `t` such that `s * m + t * n = r`.
 ![[Pasted image 20231115105955.png]]
 
+**Set of Divisors** - Given a natural number `n`, the set of its divisors is given:
+![[Pasted image 20231120115645.png]]
+e.g
+![[Pasted image 20231120115704.png]]
+
+You can also consider common divisors of two numbers,
+![[Pasted image 20231120115803.png]]
+
+**Euclid's Algorithm** -  Or even use this to find greatest common divisors
+![[Pasted image 20231120121446.png]]
+
+![[Pasted image 20231120122113.png]]
+

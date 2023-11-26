@@ -349,4 +349,42 @@ It can also be seen as a push towards schema-free, typeless programming or data.
 - Some fields are foreign keys.
 
 **Branded Types** - Almost the opposite of semi-structured data. For example, restricting floats to even more distinct types - velocities, distances, heights, etc. Would help prevent many silly operations such as adding time to distance. 
+### Further SQL
+**Joins** - Can have calculable complexity such as `R * S` steps.
+**Index** - A data structure, created and maintained in the DBMS and can speed up reads/locating records. It may slow down updates because of additional work needed (fundamental database tradeoff).
+
+SQL is actually based on multisets, not sets, because it can contain things more than once:
+![[Pasted image 20231121131124.png]]
+`SELECT DISTINCT`
+
+**Null**:
+- A number of problems associated with.
+- ![[Pasted image 20231121132937.png]]
+- "Semantic muddle" can be created:
+- ![[Pasted image 20231121133027.png]]
+
+**Bacon Number**:
+![[Pasted image 20231121132913.png]]
+### Directed Graphs
+`G = (V, A)` is a directed graph
+`V` is a finite set of vertices
+`A` is a binary relation over `V`
+If `(u, v) ∈ A` then there is an *arc* from `u` to `v`.
+
+![[Pasted image 20231121134201.png]]
+![[Pasted image 20231121134500.png]]
+
+**Function Composition**:
+![[Pasted image 20231121134323.png]]
+
+**Iterated Composition**:
+- Let `R` be a binary relation over `S`. 
+- Define iterated composition as:
+- ![[Pasted image 20231121134729.png]]
+![[Pasted image 20231121134643.png]]
+
+You could use this to e.g. calculate bacon numbers in a database:
+![[Pasted image 20231121134903.png]]
+
+SQL does have recursive declarations with `WITH`.
 

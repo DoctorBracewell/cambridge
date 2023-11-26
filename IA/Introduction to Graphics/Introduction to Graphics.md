@@ -392,4 +392,178 @@ Prepare two arrays:
 **Example**:
 ![[Pasted image 20231116115522.png]]
 
+**Swizzling** - In GLSL, extracting some number of components from an aggregate type into a smaller one, e.g. `Vec4(...).xyz` creates a `Vec3`, or even change the order.
+
+**Shader Inputs & Outputs** - 
+![[Pasted image 20231121162652.png]]
+
+**OpenGL Application Flow** -
+![[Pasted image 20231121163513.png]]
+
+For example, some key components of drawing an object:
+- `glUseProgram` to activate vertex and fragment shaders
+- `glVertexAttribPointer` to indicate which vertex and normal buffers should be passed to the shader
+- `glUniform*` to set parameters of the vertex/fragment shaders
+- `glBindTexture`, `glBindVertexArray` to bind resources
+- `glDrawElement` to run the shader and draw the element.
+### Textures
+Types of textures:
+![[Pasted image 20231121163807.png]]
+**2D** are most common.
+**Texel** - A pixel in a texture.
+
+**Texture Mapping**:
+- Define the texture image
+- Let `(u, v)` be coordinates between `0` and `1` on the texture (for ease of use as they are same regardless of texture resolution).
+- For each vertex of each triangle on your rasterised object, specify the `(u, v)` coordinates of the texture.
+- Interpolate `(u, v)` for each fragment in the triangle using barycentric, then lookup the correct colour for that point from the texture file.
+
+**Sampling**:
+Up Sampling, when the object is larger than the texture and a single texel is mapped to multiple pixels. This can be done either with nearest neighbour or bilinear (x and y axis) interpolation.
+
+For more complex textures, nearest neighbour can lead to blocky artefacts. The only real way to avoid any artefact at all is to use a sufficiently high resolution texture.
+![[Pasted image 20231121164436.png]]
+
+Down Sampling, when multiple texels map to a single pixel. Makes it necessary to sample texels or average texture across an area.
+
+**MipMap** - Textures are often stored at multiple resolutions as a mipmap. Each texture is half the size of the lower level. This actually only takes 1/3 more memory to store, as in the diagram below. 
+This is useful as it provides "pre-filtered" textures, where the average over a particular area is already calculated. This makes it much more efficient when down-sampling.
+
+![[Pasted image 20231121164643.png]]
+
+Down-sampling example:
+![[Pasted image 20231121165009.png]]
+
+**Texture Tiling** - Texture folds over such that ![[Pasted image 20231121165048.png]]
+
+**Bump/Normal Mapping** - A special kind of texture that modified the *normal* vector for specific points. The surface is still flat, but shading appears as an uneven surface.
+![[Pasted image 20231121165143.png]]
+Normal mapping is when the actual `xyz` components are stored, bump mapping stored how the normal is changed.
+
+**Displacement Mapping** - Actually effects the geometry of the surface, creating extra triangles etc. etc to provide a more accurate 
+
+**Environment Mapping** - Mapping texture to an environment around the object. Often implemented as a cube:
+![[Pasted image 20231121165657.png]]
+
+**Texture Summary in OpenGL** -
+![[Pasted image 20231121165804.png]]
+
+**Sampler** - Defines how texels are looked up. Takes a texture file/buffer/memory and seperates the application of the texture attributes so it can be reused multiple times.
+### Raster Buffers
+GPU's have a few buffers used in the rendering process
+
+**Front** - Used by the GPU to draw to screen
+**Back** - Set by a shader to the currently rendered
+
+**Depth** - Used to resolve occlusions
+**Stencil** - Specific to OpenGL, can be used to "block" certain pixels from being drawn. E.G. drawing pixels in a mirror and then changing the stencil to draw all pixels outside of the mirror.
+
+Front and back buffers are used for **double buffering**, to avoid flickering, tearing, etc.
+![[Pasted image 20231121170336.png]]
+Back buffer only sent to frame once drawing is complete. This is done by "swapping" pointers to each buffer.
+
+Might even use **triple buffering** for extra efficiency (see in above image how there are gaps where no rendering is being done)
+![[Pasted image 20231121170439.png]]
+### Vertical Synchronisation (V-Sync)
+Pixels are copied to the monitor *row-by-row*. However, if buffers are swapped during this time you can get a tearing artefact.
+![[Pasted image 20231121170619.png]]
+You can activate v-sync to ensure that the buffers aren't swapped until this is finished.
+![[Pasted image 20231121170722.png]]
+However this can lead to lag if frame rendering takes longer than the frame refresh rate (causes stutter). V-Sync trades off between frame lag and tearing artefacts.
+
+**Variable Refresh Rate** - When the GPU controls timing of the frames on the display. Basically tells the monitor how many frames it can do, and they try to synchronise together.
+G-Sync (NVIDIA)
+FreeSync (AMD)
+![[Pasted image 20231121170905.png]]
+### Human Vision and Colour
+**The eye** - 
+- The retina is an array of light detection cells
+- The fovea is the high resolution area of the retina
+- The optic nerve takes signals from the retina to the visual cortex
+- The cornea and lens focus light onto the retina
+- The pupil shrinks and expands to control the amount of light.
+
+Two classes of photoreceptors
+- Cones are responsible for day-light vision and colour perception.
+- Rods are responsible for night vision.
+- ![[Pasted image 20231123111412.png]]
+
+**Light & The Electromagnetic Spectrum** -
+- Visible light is electromagnetic waves in the range 380nm to 730nm.
+- Earth's atmosphere lets in a lot of light in this wavelength band.
+- Higher in energy than thermal infrared, so heat does not interfere with vision.
+
+Colour is the result of our perception.
+For emissive displays, `colour = perception(spectral_emission)`.
+For reflective displays, `colour = perception(illumination x reflectance)`
+
+Most light we see is reflected from objects, which absorb a certain part of the light spectrum.
+Same objects may appear to have different colours under different illuminations.
+
+**Colour Vision** - There are three types of cones:
+- **S**hort, sensitive to short wavelengths
+- **M**edium
+- **L**ong
+A sensitive curve is the probability that photons of that wavelength will be absorbed.
+![[Pasted image 20231123112318.png]]
+
+![[Pasted image 20231123112414.png]]
+
+**Metamers** - Even if two light spectra are different they may appear to have the same colour. These are known as metamers.
+
+Metamers are important, because displays might not emit same light spectra as real-world but they look the same.
+
+**Tristimulus Colour Representation** - Any colour can be matched using three linear independent reference colours. However this may required "negative" contribution from some channel.
+![[Pasted image 20231123112824.png]]
+^ This is known as a **colour function**, and describes how the 3 basis colours can be used to create a variety of wavelengths.
+
+**Standard Colour Space** - CIE-XYZ, an organisation/standard for use of colours (printing, display, accessibility, etc.)
+
+CIE Experiments, 1931:
+- Colour matching experiments
+- Group ~12 people with normal colour vision
+- Basis for CIE XYZ 1931 CM functions.
+
+CIE 2006 XYZ:
+- Derived from LMS colour matching functions
+- S-cone response is the most different.
+
+CIE-XYZ Colour Space Goals:
+- Abstract from concrete primaries used in experiments
+- All matching functions are positive
+![[Pasted image 20231123113218.png]]
+
+**Chromaticity Diagram** - 
+![[Pasted image 20231123113244.png]]
+![[Pasted image 20231123113253.png]]
+- Pure colours lie on outer curve
+- All other colours are a mix of pure colours
+- Points outside the curve do not "exist" as colours.
+
+**Achromatics** - 
+![[Pasted image 20231123113733.png]]
+
+**Luminance** - Measure of light weighted by the response of the achromatic mechanisms. Measured in `cd/m^2` or `nit`.
+![[Pasted image 20231123113820.png]]
+
+**Visible vs displayable colours** -
+- All physically possible and visible colours form a solid in XYZ space.
+- Each display device can reproduce a subspace of that space.
+- A chromaticity diagram is a slice of this shape.
+- The solid is known as a **colour gamut**. 
+
+**HDR** - High dynamic range, attempts to capture/represent almost all visible colours.
+**SDR** - Standard dynamic range, attempts to capture only colours of a standard sRGB colour gamut (mimicking CRT monitors).
+
+**Gamma Encoding** - Used to encode luminance or tristimulus colour values in imaging systems.
+![[Pasted image 20231123114516.png]]
+
+**Luma** - Pixel brightness in gamme corrected units. 
+![[Pasted image 20231123114706.png]]
+The gamma-corrected pixel values give a scale of brightness that is more perceptually uniform.
+
+**Transforming between RGB colour spaces** -
+![[Pasted image 20231123115302.png]]
+e.g.
+![[Pasted image 20231123115317.png]]
 

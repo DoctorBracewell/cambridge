@@ -2,23 +2,29 @@
 You can define sets by property or by enumeration:
 ![[Pasted image 20231120115125.png]]
 
+**Membership Predicate** - 
+![[Pasted image 20231124161426.png]]
+![[Pasted image 20231124161432.png]]
+
 Two sets are equal when they have the same elements
+![[Pasted image 20231124161531.png]]
 
-**Set Comprehension** - Stating a property for some universe (larger set) `A`. 
-![[Pasted image 20231120115228.png]]
+**Subsets & Supersets** - 
+![[Pasted image 20231124170343.png]]
+`A` is a subset of `B` if all members of `A` are members of `B`.
 
-![[Pasted image 20231120115057.png]]
-`x` is a member of `A`.
+![[Pasted image 20231124170230.png]]
 
-**Set of Divisors** - Given a natural number `n`, the set of its divisors is given:
-![[Pasted image 20231120115645.png]]
-e.g
-![[Pasted image 20231120115704.png]]
+**Separation Principle** - 
+![[Pasted image 20231124172118.png]]
+Essentially "filters" a set by predicate `P(x)`.
+You can also use this for comprehension - defining a set by a property.
 
-You can also consider common divisors of two numbers,
-![[Pasted image 20231120115803.png]]
+**Russel's Paradox** - 
+![[Pasted image 20231124172239.png]]
 
-**Euclid's Algorithm** -  Or even use this to find greatest common divisors
-![[Pasted image 20231120121446.png]]
+**Cardinality** - The size of a set. Written as `#S` or `|S|`. Can be finite or infinite sets. The cardinality of a finite set is a natural number.
 
-![[Pasted image 20231120122113.png]]
+**Powerset Axiom** -
+![[Pasted image 20231124173444.png]]
+![[Pasted image 20231124174650.png]]
