@@ -567,3 +567,71 @@ The gamma-corrected pixel values give a scale of brightness that is more percept
 e.g.
 ![[Pasted image 20231123115317.png]]
 
+**Map colour to display**:
+You have:
+![[Pasted image 20231128110949.png]]
+
+You want:
+- display-encoded R'G'B' values:
+![[Pasted image 20231128111040.png]]
+
+**RGB Spaces**:
+- Most monitors output a mix of red, green blue light to make colours.
+- This colour space can be linear or display-encoded.
+- Can be scene-referred or display-referred
+- Linear colour spaces can be transformed into CIE XYZ.
+
+**CMY Spaces**:
+- Printers make colour by mixing cyan, magenta and yellow
+- These *absorb* or *reflect* light rather than emit it.
+- At its simplest the inverse of RGB
+- Black ink is usually also included as mixing them tends to just make muddy brown.
+
+**Munsell**:
+![[Pasted image 20231128112614.png]]
+
+**HSV**:
+![[Pasted image 20231128112630.png]]
+
+**HSL**:
+![[Pasted image 20231128112647.png]]
+
+**Linear colour spaces**:
+- E.g. CIE XYZ, LMS cone response, linear RGB.
+- Typically floating point numbers
+- Directly related to the measurements of light (radiance and lumoinance)
+- Perceptually non-uniform
+- Transformation can be expressed as a matrix multiplication.
+
+**Display-encoded and non-linear colour spaces**:
+- E.g gamma-corrected, RGB, HVS, HLS, PQ-encoded RGB.
+- Typically integers, 8-12 bits
+- Intended for efficient encoding, easier interpretation and perceptual uniformity.
+### Tone Mapping
+The human vision can see a wider range than a typical monitor can display.
+
+Tone mapping is used:
+- To reduce dynamic range
+- Customise the look of an image
+- Simulate human vision
+- Simulate a camera
+- Adapt images to a particular display or environment
+- Make rendered images look more realistic
+- Map from scene-to-display referred colours.
+
+The primary purpose of tone mapping is to transform an image from scene-referred (HDR) to display-referred (SDR) colours:
+![[Pasted image 20231128113615.png]]
+![[Pasted image 20231128113633.png]]
+
+The simplest form of tone-mapping is just the exposure/brightness adjustment of each colour channel.
+![[Pasted image 20231128113740.png]]
+OpenGL offers sRGB textures to automate RGB to/from sRGB conversion. 
+
+**Tone Curve**:
+![[Pasted image 20231128113918.png]]
+
+**Sigmodial Tone Curve**:
+![[Pasted image 20231128114219.png]]
+
+![[Pasted image 20231128114247.png]]
+![[Pasted image 20231128114306.png]]

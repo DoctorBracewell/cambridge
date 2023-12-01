@@ -387,4 +387,30 @@ You could use this to e.g. calculate bacon numbers in a database:
 ![[Pasted image 20231121134903.png]]
 
 SQL does have recursive declarations with `WITH`.
+### Graph-oriented Databases
+**Nodes** - Have a type, a unique label and several properties.
+**Edges** - Are directed between two nodes. They have a type, optional label and properties.
+You can collate by types to convert to rDBMS.
+
+You could simply store graphs in relational tables (e.g. one with edges, one with nodes).
+However this is inefficient. Edges are interchangeable for undirected searches. Queries can be painful to implement in SQL.
+
+To avoid an EID, the edges table could be all-key. rDBMS Not ideal. Binary relation is bipartite (all edges go from node of type A to node of type B).
+
+**Normalisation** -
+- Arc names myst be unique.
+- Modelling mistake since same role name could appear:
+- ![[Pasted image 20231128132351.png]]
+
+**Arcs**:
+- Represent a binary relation on nodes
+- Pattern matching on paths is supported
+- Transitive closure is free
+- And many common graph algorithms supported.
+
+Example queries in Neo4j:
+![[Pasted image 20231128133408.png]]
+
+**Summary** -
+![[Pasted image 20231128134830.png]]
 

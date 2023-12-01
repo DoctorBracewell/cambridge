@@ -581,7 +581,8 @@ class NinjaEmployee implements HasJob {
 	}
 
 	// and so on...
-}```
+}
+```
 ### 37
 > Write a small Java program that demonstrates constructor chaining using a hierarchy of three classes as follows: `A` is the parent of `B` which is the parent of `C`. Modify your definition of `A` so that it has exactly one constructor that takes an argument, and show how `B` and/or `C` must be changed to work with it.
 
@@ -614,7 +615,8 @@ class C extends B {
 	C(int param) {
 		super(param);
 	}
-}```
+}
+```
 ### 38
 > The lectures described the main mechanism to mark objects that can be deleted (or to mark objects that cannot be deleted), but not the deletion process. Compare and contrast the following approaches in terms of performance. Your answer should consider the costs associated with marking and deleting.
 

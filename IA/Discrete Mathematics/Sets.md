@@ -28,3 +28,12 @@ You can also use this for comprehension - defining a set by a property.
 **Powerset Axiom** -
 ![[Pasted image 20231124173444.png]]
 ![[Pasted image 20231124174650.png]]
+
+**Venn Diagram** - A construct used to visualise sets and relations between them.
+
+**Sets and Logic** - 
+![[Pasted image 20231127103543.png]]
+
+**Pairing Axiom** -
+![[Pasted image 20231127104503.png]]
+![[Pasted image 20231127104513.png]]

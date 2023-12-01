@@ -283,3 +283,33 @@ For lists, you get a compile type error because of type erasure.
 `?` can be used to represent any type. Useful, for example, since type erasure limits method signaures.
 
 `? extends T` - Allows you to read certain types, but can't write.
+### Lambdas
+**Options for filtering**:
+- Filter imperatively in the function flow
+- Create filtering predicate classes and a flexible `filter` function.
+- Same but with anonymous classes
+- Lambda function
+
+**Functional Interface** - An interface with exactly one, abstract, method. Standard ones include:
+![[Pasted image 20231129113218.png]]
+
+**Lambdas**:
+- A kind of anonymous function
+- That can be passed around
+- No name, but parameters, body, return type, exceptions, etc.
+![[Pasted image 20231129112618.png]]
+
+**Method References**:
+- Let you reuse existing method definitions and pass them just like lambdas.
+- ![[Pasted image 20231129113241.png]]
+### Streams
+**Stream**:
+- A fancy iterator with database-like operations.
+- A sequence of elements from a source that supports aggregate operations.
+
+Intermediate operations can return another stream, and then a terminate operation can turn the stream back to something else.
+![[Pasted image 20231129114046.png]]
+
+This is done *lazily* - only when you ask for a result are the intermediate operations actually performed. In the code you are just "defining" the pipeline.
+![[Pasted image 20231129114159.png]]
+
